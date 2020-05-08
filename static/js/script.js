@@ -8,7 +8,9 @@
 });*/
 
 //initialization
+
 $(document).ready(function() {
+    
 
 
     //Bot pop-up intro
@@ -215,6 +217,15 @@ function setBotResponse(response) {
                     //$(BotResponse).appendTo(".chats").hide().fadeIn(1000);
                       //text_res = replaceStr(response[i].text);
                     //var BotResponse = '<img class="botAvatar" src="./static/img/128_chat_icon.png"/><p class="botMsg">' +text_res + '</p><div class="clearfix"></div>';
+                    if(response[i].text == "email")
+                    {
+                        console.log('working');
+                        //capture();
+                        document.getElementById('screenshotButton').click();
+                        send('/get_image{"image":"https://cdn.pixabay.com/photo/2015/06/19/21/24/the-road-815297_960_720.jpg"}');
+                        showBotTyping();
+                        continue;
+                    }
                     var img = document.createElement('img');
                     img.src = "./static/img/128_chat_icon.png";
                     img.className = "botAvatar"
