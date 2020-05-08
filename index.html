@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chatbot Widget</title>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap" rel="stylesheet">
+
+    <!--Import Font Awesome Icon Font-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+    <!--Import materialize.css-->
+    <link rel="stylesheet" type="text/css" href="static/css/materialize.min.css">
+
+    <!--Main css-->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div class="container">
+        <!--<div> 
+            Google was founded in September 1998 by Larry Page and Sergey Brin while they were Ph.D. students at Stanford University in California. Together they own about 14 percent of its shares and control 56 percent of the stockholder voting power through supervoting stock. They incorporated Google as a California privately held company on September 4, 1998, in California. Google was then reincorporated in Delaware on October 22, 2002.[13] An initial public offering (IPO) took place on August 19, 2004, and Google moved to its headquarters in Mountain View, California, nicknamed the Googleplex. In August 2015, Google announced plans to reorganize its various interests as a conglomerate called Alphabet Inc. Google is Alphabet's leading subsidiary and will continue to be the umbrella company for Alphabet's Internet interests. Sundar Pichai was appointed CEO of Google, replacing Larry Page who became the CEO of Alphabet.
+            The company's rapid growth since incorporation has triggered a chain of products, acquisitions, and partnerships beyond Google's core search engine (Google Search). It offers services designed for work and productivity (Google Docs, Google Sheets, and Google Slides), email (Gmail), scheduling and time management (Google Calendar), cloud storage (Google Drive), instant messaging and video chat (Duo, Hangouts), language translation (Google Translate), mapping and navigation (Google Maps, Waze, Google Earth, Street View), video sharing (YouTube), note-taking (Google Keep), and photo organizing and editing (Google Photos). The company leads the development of the Android mobile operating system, the Google Chrome web browser, and Chrome OS, a lightweight operating system based on the Chrome browser. Google has moved increasingly into hardware; from 2010 to 2015, it partnered with major electronics manufacturers in the production of its Nexus devices, and it released multiple hardware products in October 2016, including the Google Pixel smartphone, Google Home smart speaker, Google Wifi mesh wireless router, and Google Daydream virtual reality headset. Google has also experimented with becoming an Internet carrier (Google Fiber, Google Fi, and Google Station).[14]
+            Google.com is the most visited website in the world.[15] Several other Google services also figure in the top 100 most visited websites, including YouTube and Blogger. Google was the most valuable brand in the world as of 2017,[16] but has received significant criticism involving issues such as privacy concerns, tax avoidance, antitrust, censorship, and search neutrality.
+
+        </div>-->
+
+        <!--chatbot widget -->
+        <div class="widget">
+            <div class="chat_header">
+
+                <!--Add the name of the bot here -->
+                <i class="fa fa-stop-circle restart" id = "restart" style="font-size:24px"></i>
+                <span class="chat_header_title">DRx Assistant</span>
+                <i class="fa fa-close close" id = "close" style="font-size:24px"></i>
+            </div>
+
+            <!--Chatbot contents goes here -->
+            <div class="chats" id="chats">
+                <div class="clearfix"></div>
+            </div>
+
+            <!--keypad for user to type the message -->
+            <div class="row">
+                <div class="keypad">
+                    <div class="col s1"  > 
+                        <div id="screenshotButton"><i class="fa fa-camera" aria-hidden="true"></i></div>
+                    </div>
+                    <div class="col s10">
+                        <textarea id="userInput" placeholder="Type a message..." class="usrInput"></textarea>
+                    </div>
+                    <div class="col s1">
+                        <div id="sendButton"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </div>
+			
+        </div>
+
+        <!--bot profile-->
+        <div class="profile_div" id="profile_div">
+            <img class="imgProfile" src="static/img/128_chat_icon.png" />
+        </div>
+
+
+    </div>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/materialize.min.js"></script>
+
+    <!--Main Script -->
+	<script type="text/javascript" src="static/js/config.js"></script>
+    <script type="text/javascript" src="static/js/script.js"></script>
+
+    <!--Chart.js Script -->
+    <script type="text/javascript" src="static/js/chart.min.js"></script>
+	
+	<!-- Screenshot script - Starts -->
+    <script type="text/javascript" src="static/js/html2canvas.js"></script>
+
+
+	<script type="text/javascript">
+	  const capture = () => {
+	  const body = document.querySelector('body');
+	  body.id = 'capture';
+	  
+	  html2canvas(document.querySelector("#capture"),{
+        allowTaint: false,
+        useCORS: true
+        }).then(canvas => {
+		document.body.appendChild(canvas);
+	  }).then(() => {
+	  
+	  	var canvas = document.querySelector('canvas');
+		canvas.style.display = 'none';
+				
+		var dataURL = canvas.toDataURL(); 
+		$.ajax({ 
+			type: "POST", 
+			url: "script.php", 
+			data: { 
+				imgBase64: dataURL 
+			} 
+		}).done(function(o) { 
+			console.log('saved'); 
+		}); 
+
+	  });
+	};
+
+	const btn = document.getElementById('screenshotButton');
+	btn.addEventListener('click', capture)
+	
+	
+	</script>
+	<!-- Screenshot script - End -->
+
+</body>
+
+</html>
