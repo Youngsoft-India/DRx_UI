@@ -222,7 +222,11 @@ function setBotResponse(response) {
                         console.log('working');
                         //capture();
                         document.getElementById('screenshotButton').click();
-                        send('/get_image{"image":"'+localStorage.getItem('screenshotImg')+'"}');
+						console.log(localStorage.getItem('screenshotImg'));
+						if(localStorage.getItem('screenshotImg')!=undefined)
+						{
+							send('/get_image{"image":"'+localStorage.getItem('screenshotImg')+'"}');
+						}
                         showBotTyping();
                         continue;
                     }
