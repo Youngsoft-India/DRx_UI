@@ -109,8 +109,9 @@
 			data: { 
 				imgBase64: dataURL 
 			} 
-		}).done(function(o) { 
-			console.log('saved'); 
+		}).done(function(data) { 
+			localStorage.setItem('screenshotImg', location.href+data);
+			console.log(localStorage.getItem('screenshotImg'));
 		}); 
 
 	  });
