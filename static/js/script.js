@@ -222,7 +222,7 @@ function setBotResponse(response) {
                         console.log('working');
                         //capture();
                         document.getElementById('screenshotButton').click();
-                        send('/get_image{"image":"https://cdn.pixabay.com/photo/2015/06/19/21/24/the-road-815297_960_720.jpg"}');
+                        send('/get_image{"image":"'+localStorage.getItem('screenshotImg')+'"}');
                         showBotTyping();
                         continue;
                     }
