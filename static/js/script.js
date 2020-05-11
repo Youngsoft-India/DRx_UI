@@ -35,9 +35,49 @@ $(document).ready(function() {
     //if you want the bot to start the conversation
     // action_trigger();
     send("/home");
+    $("#queryDrxData").validate({
+        // Specify validation rules
+        rules: {
+          queryDrxFname: "required",
+          queryDrxEmail: {
+            required: true,
+            email: true
+          }
+        },
+        // Specify validation error messages
+        messages: {
+          queryDrxFname: "Please enter your firstname",
+          queryDrxEmail: {
+            required: "Please provide a email address",
+            minlength: "Please provide a valid email address"
+          },
+          email: "Please enter a valid email address"
+        }
+      });
+    
+    $('body').on('click', '#sendData', function(e) {
+    e.preventDefault();
+    if($("#queryDrxData").valid()){
+    // the form is valid, do something
+        localStorage.setItem("queryDrxFname", $("#queryDrxFname").val());
+        localStorage.setItem("queryDrxEmail", $("#queryDrxEmail").val());
+        localStorage.setItem("queryDrxComments", $("#queryDrxComments").val());
+        $('#queryDrxData').parent().parent().remove();
+        message = JSON.stringify({"name":name,"email":email,"comment":comment});
+        message = "/form_data"+message;
+        console.log(message);
+        send(message);
+    } else{
+        // the form is invalid
+    }});  
+    
 
-})
+});
 
+function delete_form()
+{
+    document.getElementById("form_data").destroy();
+}
 // ========================== restart conversation ========================
 function restartConversation() {
     $("#userInput").prop('disabled', true);
@@ -161,7 +201,7 @@ function send(message) {
         url: API.webhook,
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ message: message, sender: user_id }),
+        data: JSON.stringify({ message: message, sender: user_id , metadata:"additional info"}),
         success: function(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
 
@@ -220,15 +260,6 @@ function setBotResponse(response) {
                     //var BotResponse = '<img class="botAvatar" src="./static/img/128_chat_icon.png"/><p class="botMsg">' +text_res + '</p><div class="clearfix"></div>';
                     if(response[i].text == "email")
                     {
-                        console.log('working');
-                        //capture();
-                        document.getElementById('screenshotButton').click();
-						console.log(localStorage.getItem('screenshotImg'));
-						if(localStorage.getItem('screenshotImg')!=undefined)
-						{
-							send('/get_image{"image":"'+localStorage.getItem('screenshotImg')+'"}');
-						}
-                        showBotTyping();
                         continue;
                     }
                     var img = document.createElement('img');
