@@ -1,126 +1,181 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Chatbot Widget</title>
 
-<head>
-    <title>Chatbot Widget</title>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap" rel="stylesheet" />
 
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap" rel="stylesheet">
+        <!--Import Font Awesome Icon Font-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
-    <!--Import Font Awesome Icon Font-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+        <!--Import materialize.css-->
+        <link rel="stylesheet" type="text/css" href="static/css/materialize.min.css" />
 
-    <!--Import materialize.css-->
-    <link rel="stylesheet" type="text/css" href="static/css/materialize.min.css">
+        <!--Main css-->
+        <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
 
-    <!--Main css-->
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
-<body>
-    <div class="container">
-
-        <!--chatbot widget -->
-        <div class="widget">
-            <div class="chat_header">
-
-                <!--Add the name of the bot here -->
-                <i class="fa fa-stop-circle restart" id = "restart" style="font-size:24px"></i>
-                <span class="chat_header_title">DRx Assistant</span>
-                <i class="fa fa-window-minimize close" id = "close"  style="font-size:24px"></i>
-            </div>
-
-            <!--Chatbot contents goes here -->
-            <div class="chats" id="chats">
-                <div class="clearfix"></div>
-            </div>
-
-            <!--keypad for user to type the message -->
+    <body>
+        <div class="container">
             <div class="row">
-                <div class="keypad">
-                    <div class="col s1"  > 
-                        <div id="screenshotButton"><i class="fa fa-camera" aria-hidden="true"></i></div>
+                <div class="col-md-4 col-xs-12 col-lg-4">
+                    <div class="site-branding">
+                        <div class="site-logo-image">
+                            <a href="http://h2hsolutions.com/" title="H2H Solutions" rel="home"><img src="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/logo-1.png" alt="H2H Solutions" /></a>
+                        </div>
                     </div>
-                    <div class="col s10">
-                        <textarea id="userInput" placeholder="Type a message..." class="usrInput"></textarea>
-                    </div>
-                    <div class="col s1">
-                        <div id="sendButton"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                </div>
+                <!-- .col-md-4 .col-xs-12 .col-lg-4 -->
+
+                <!-- .col-md-8 .col-xs-12 .col-lg-8 -->
+            </div>
+            <!-- .row -->
+        </div>
+        <div class="container">
+            <div class="col-xs-12 col-sm-8 col-md-12">
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main" role="main">
+                        <p>
+                            H2H Solutions has developed an easy to use, Internet rendered ASP model e-Prescribing platform, designed to provide Physicians and their office staff members with a safe, secure, and comprehensive method for
+                            generating prescriptions within the Physician office, and delivering the completed prescriptions to the pharmacy of choice for their patients via Surescript network.
+                        </p>
+                        <h2>H2H Digital R<span style="text-transform: lowercase;">x</span><sup>TM</sup> Features</h2>
+                        <p>
+                            <b>Digital Rx is a “Qualified System” for the CMS Incentive Program!</b>
+                            <a href="http://h2hsolutions.com/wp-content/uploads/2017/02/Medicare_2009eRXMadeSimple.pdf" target="_blank"><strong>Learn more..</strong></a>
+                        </p>
+                        <ul class="big-ul">
+                            <li>State-of-the-art JAVA / J2EE platform available to any authorized Physician over the Internet, with no special software or hardware required within the physician’s office,</li>
+                            <li>
+                                Integration with Surescript™, the nation’s e-prescription network for real-time determination of patient eligibility, up to date formulary listings, as well as a complete listing of ALL medications written
+                                for their patients, regardless of who the originating Physician was or where in the country the prescription may have been filled,
+                            </li>
+                            <li>
+                                Real-time drug-drug, drug-food, drug-allergy, drug-dose, and duplicate therapy information provided to Physicians, along with mechanisms that take into account those medications that were prescribed by other
+                                Physicians and that were perhaps filled somewhere else in the United States, paying particular attention to those interactions that may pose a risk to the patient.
+                            </li>
+                            <li>
+                                Electronic messaging directly from pharmacies for refill requests made by patients, affording the Physician the opportunity to immediately authorize, deny, or defer until the patient has scheduled a follow-up
+                                appointment, etc., as well as notifications pertaining to new data regarding side-effects and medication precautionary information,
+                            </li>
+                            <li>
+                                Once completed, the prescriber has the ability to electronically route new prescription to community pharmacies, to electronically route prescription renewal requests and responses to community pharmacies ,to
+                                route new prescription to mail-order pharmacies and to electronically route the prescription renewal requests and responses to mail-order pharmacies.
+                            </li>
+                        </ul>
+                        <p>
+                            In order to make Digital Rx even more valuable to the physician, H2H has developed multiple methods for integration with existing Practice Management or Electronic Medical Records applications that Physicians may
+                            already have installed, or that they may be planning on acquiring.
+                        </p>
+                        <p>
+                            H2H Digital Rx brings the sophistication of a comprehensive e-Prescribing platform to any interested Physician, inexpensively, and with minimal disruption to existing practice procedures. H2H would be pleased to
+                            arrange a web cast viewing of Digital Rx at your convenience.
+                        </p>
+                        <p class="text-center">
+                            <strong>Click here to see a Flash <a href="http://h2hsolutions.com/DigitalRxDEMO/Demo/Digital%20Rx%20Demo.html" target="_blank">DEMO!</a></strong>
+                        </p>
+                        <strong> </strong>
+                        <p><strong></strong></p>
+                        <div class="text-center">
+                            <img class="alignnone size-full wp-image-247" src="http://h2hsolutions.com/wp-content/uploads/2017/02/Seal_Certificate_2011_1.jpg" alt="" width="190" height="176" />
+                            <img class="alignnone size-medium wp-image-248" src="http://h2hsolutions.com/wp-content/uploads/2017/02/SSTaglineLogoGoldR3-300x182.jpg" alt="" width="300" height="182" />
+                        </div>
+                    </main>
+                    <!-- #main -->
+                </div>
+                <!-- #primary -->
+            </div>
+            <!--chatbot widget -->
+            <div class="widget">
+                <div class="chat_header">
+                    <!--Add the name of the bot here -->
+                    <i class="fa fa-stop-circle restart" id="restart" style="font-size: 24px;"></i>
+                    <span class="chat_header_title">DRx Assistant</span>
+                    <i class="fa fa-close close" id="close" style="font-size: 24px;"></i>
+                    <!--<i class="fa fa-window-minimize close" id = "close"  style="font-size:24px"></i>-->
+                </div>
+
+                <!--Chatbot contents goes here -->
+                <div class="chats" id="chats">
+                    <div class="clearfix"></div>
+                </div>
+
+                <!--keypad for user to type the message -->
+                <div class="row">
+                    <div class="keypad">
+                        <div class="col s1">
+                            <div id="screenshotButton"><i class="fa fa-camera" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="col s10">
+                            <textarea id="userInput" placeholder="Type a message..." class="usrInput"></textarea>
+                        </div>
+                        <div class="col s1">
+                            <div id="sendButton"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                        </div>
                     </div>
                 </div>
             </div>
-			
+
+            <!--bot profile-->
+            <div class="profile_div" id="profile_div">
+                <img class="imgProfile" src="static/img/128_chat_icon.png" />
+            </div>
         </div>
 
-        <!--bot profile-->
-        <div class="profile_div" id="profile_div">
-            <img class="imgProfile" src="static/img/128_chat_icon.png" />
-        </div>
+        <!--JavaScript at end of body for optimized loading-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="static/js/materialize.min.js"></script>
 
+        <!-- Screenshot script - Starts -->
+        <script type="text/javascript" src="static/js/html2canvas.js"></script>
 
-    </div>
+        <!--Main Script -->
+        <script type="text/javascript" src="static/js/config.js"></script>
+        <script type="text/javascript" src="static/js/script.js"></script>
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="static/js/materialize.min.js"></script>
+        <!--Chart.js Script -->
+        <script type="text/javascript" src="static/js/chart.min.js"></script>
 
-    <!-- Screenshot script - Starts -->
-    <script type="text/javascript" src="static/js/html2canvas.js"></script>
-    
-    <!--Main Script -->
-	<script type="text/javascript" src="static/js/config.js"></script>
-    <script type="text/javascript" src="static/js/script.js"></script>
+        <script type="text/javascript">
+            const capture = () => {
+                const body = document.querySelector("body");
+                body.id = "capture";
 
-    <!--Chart.js Script -->
-    <script type="text/javascript" src="static/js/chart.min.js"></script>
-	
-	
+                html2canvas(document.querySelector("#capture"), {
+                    allowTaint: false,
+                    useCORS: true,
+                })
+                    .then((canvas) => {
+                        //document.querySelector('canvas').remove();
+                        document.body.appendChild(canvas);
+                    })
+                    .then(() => {
+                        var canvas = document.querySelector("canvas");
+                        canvas.style.display = "none";
 
+                        var dataURL = canvas.toDataURL();
+                        $.ajax({
+                            type: "POST",
+                            url: "script.php",
+                            data: {
+                                imgBase64: dataURL,
+                            },
+                        }).done(function (data) {
+                            localStorage.setItem("screenshotImg", location.href + data);
+                            console.log(localStorage.getItem("screenshotImg"));
+                        });
+                    });
+            };
 
-	<script type="text/javascript">
-	  const capture = () => {
-	  const body = document.querySelector('body');
-	  body.id = 'capture';
-	  
-	  html2canvas(document.querySelector("#capture"),{
-        allowTaint: false,
-        useCORS: true
-        }).then(canvas => {
-		//document.querySelector('canvas').remove();
-		document.body.appendChild(canvas);
-	  }).then(() => {
-	  
-	  	var canvas = document.querySelector('canvas');
-		canvas.style.display = 'none';
-				
-		var dataURL = canvas.toDataURL(); 
-		$.ajax({ 
-			type: "POST", 
-			url: "script.php", 
-			data: { 
-				imgBase64: dataURL 
-			} 
-		}).done(function(data) { 
-			localStorage.setItem('screenshotImg', location.href+data);
-			console.log(localStorage.getItem('screenshotImg'));
-		}); 
-
-	  });
-	};
-
-	const btn = document.getElementById('screenshotButton');
-	btn.addEventListener('click', capture)
-	
-	
-	</script>
-	<!-- Screenshot script - End -->
-
-</body>
-
+            const btn = document.getElementById("screenshotButton");
+            btn.addEventListener("click", capture);
+        </script>
+        <!-- Screenshot script - End -->
+    </body>
 </html>
