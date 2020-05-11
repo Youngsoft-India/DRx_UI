@@ -22,7 +22,8 @@ $(document).ready(function() {
     //initiate the modal for displaying the charts, if you dont have charts, then you comment the below line
     //$('.modal').modal();
 
-
+    $(".profile_div").toggle();
+    $(".widget").toggle();
 
     //enable this if u have configured the bot to start the conversation. 
     // showBotTyping();
@@ -222,7 +223,11 @@ function setBotResponse(response) {
                         console.log('working');
                         //capture();
                         document.getElementById('screenshotButton').click();
-                        send('/get_image{"image":"https://cdn.pixabay.com/photo/2015/06/19/21/24/the-road-815297_960_720.jpg"}');
+						console.log(localStorage.getItem('screenshotImg'));
+						if(localStorage.getItem('screenshotImg')!=undefined)
+						{
+							send('/get_image{"image":"'+localStorage.getItem('screenshotImg')+'"}');
+						}
                         showBotTyping();
                         continue;
                     }
