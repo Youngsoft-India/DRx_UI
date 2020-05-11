@@ -59,9 +59,12 @@ $(document).ready(function() {
     e.preventDefault();
     if($("#queryDrxData").valid()){
     // the form is valid, do something
-        localStorage.setItem("queryDrxFname", $("#queryDrxFname").val());
-        localStorage.setItem("queryDrxEmail", $("#queryDrxEmail").val());
-        localStorage.setItem("queryDrxComments", $("#queryDrxComments").val());
+        //localStorage.setItem("queryDrxFname", $("#queryDrxFname").val());
+        //localStorage.setItem("queryDrxEmail", $("#queryDrxEmail").val());
+        //localStorage.setItem("queryDrxComments", $("#queryDrxComments").val());
+        var name = $('#queryDrxFname').val();
+        var email = $('#queryDrxEmail').val();
+        var comment = $("#queryDrxComments").val();
         $('#queryDrxData').parent().parent().remove();
         message = JSON.stringify({"name":name,"email":email,"comment":comment});
         message = "/form_data"+message;
@@ -254,14 +257,6 @@ function setBotResponse(response) {
 
                 //check if the response contains "text"
                 if (response[i].hasOwnProperty("text")) {
-                    //var BotResponse = '<img class="botAvatar" src="./static/img/128_chat_icon.png"/><p class="botMsg">' + response[i].text + '</p><div class="clearfix"></div>';
-                    //$(BotResponse).appendTo(".chats").hide().fadeIn(1000);
-                      //text_res = replaceStr(response[i].text);
-                    //var BotResponse = '<img class="botAvatar" src="./static/img/128_chat_icon.png"/><p class="botMsg">' +text_res + '</p><div class="clearfix"></div>';
-                    if(response[i].text == "email")
-                    {
-                        continue;
-                    }
                     var img = document.createElement('img');
                     img.src = "./static/img/128_chat_icon.png";
                     img.className = "botAvatar"
