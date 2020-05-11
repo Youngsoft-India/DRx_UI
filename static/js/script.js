@@ -22,7 +22,8 @@ $(document).ready(function() {
     //initiate the modal for displaying the charts, if you dont have charts, then you comment the below line
     //$('.modal').modal();
 
-
+    $(".profile_div").toggle();
+    $(".widget").toggle();
 
     //enable this if u have configured the bot to start the conversation. 
     // showBotTyping();
