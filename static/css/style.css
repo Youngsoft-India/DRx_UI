@@ -8,9 +8,9 @@ body {
 .widget {
     display: none;
     width: 350px;
-    right: 15px;
+    right: 0px;
     height: 500px;
-    bottom: 5%;
+    bottom: 0;
     position: fixed;
     background: #f7f7f7;
     border-radius: 10px 10px 10px 10px;
@@ -75,7 +75,7 @@ div.chats::-webkit-scrollbar {
     margin-left: 0.5em;
     padding: 10px;
     border-radius: 1.5em;
-    max-width: 60%;
+    max-width: 65%;
     min-width: 25%;
     font-size: 13px;
     word-wrap: break-word;
@@ -96,6 +96,41 @@ textarea::-webkit-input-placeholder {
 
 textarea-webkit-scrollbar {
     width: 0 !important
+}
+
+
+#queryDrxData .form-field {
+    margin-bottom: 10px;
+}
+#queryDrxData .form-field label {
+    color: #000;
+    font-size: 12px;
+    padding: 0 0 3px 0;
+    margin: 0;
+    display: block;
+}
+#queryDrxData .form-field input {
+    border: 1px solid #ccc !important;
+    height: 25px !important;
+    border-radius: 4px !important;
+    margin-bottom: 0px !important;
+}
+
+#queryDrxData .form-field textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#queryDrxData .submit-btn {
+    text-align: center;
+    display: block;
+}
+#queryDrxData .submit-btn #sendData {
+    background: #2b2bab;
+    border: 1px solid #6fb1ed;
+    padding: 5px 15px;
+    color: #fff;
+    font-weight: 600;
+	cursor: pointer;
 }
 
 .userMsg {
@@ -177,23 +212,50 @@ textarea-webkit-scrollbar {
     color: #2b2bab;
 }
 
-.imgProfile {
-    box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 10px 0 #1a4176;
-	background-color: #1a4176;
-    border-radius: 50px;
-    width: 60%;
+
+div#profile_div img {
+    height: 40px;
+    margin-top: 5px;
 }
+
 
 .profile_div {
-    /* display: none; */
     position: fixed;
     padding: 5px;
-    width: 10%;
-    bottom: 0;
-    right: 0;
+    width: 65px;
+    bottom: 10px;
+    right: 10px;
     cursor: pointer;
+    text-align: center;
+    height: 65px;
+    vertical-align: middle;
+	box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.16), 0 0px 10px 0 #1a4176;
+    background-color: #1a4176;
+    border-radius: 50%;
 }
 
+.list-items ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-items li {
+    text-align: left;
+    padding-bottom: 10px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.list-items li:before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background: #039be5;
+    position: absolute;
+    top: 8px;
+    left: 0px;
+}
 
 /* css for dropdown menu of the bot */
 
@@ -868,3 +930,5 @@ video:focus {
     float: left;
     margin-top: 3.5%;
 }
+
+
