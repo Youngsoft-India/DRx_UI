@@ -67,6 +67,9 @@ $(document).ready(function() {
 			var email = $('#queryDrxEmail').val();
 			var comment = $("#queryDrxComments").val();
 			$('#queryDrxData').parent().parent().remove();
+			
+			showBotTyping();
+						
 			message = JSON.stringify({"name":name,"email":email,"comment":comment});
 			message = "/form_data"+message;
 			console.log(message);
