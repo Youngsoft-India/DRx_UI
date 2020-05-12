@@ -930,5 +930,7 @@ video:focus {
     float: left;
     margin-top: 3.5%;
 }
-
+.error {
+    color: red !important;
+}
 

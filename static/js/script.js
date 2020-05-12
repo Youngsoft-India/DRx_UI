@@ -9,8 +9,7 @@
 
 //initialization
 
-$(document).ready(function() {
-    
+$(document).ready(function() { 
 
 
     //Bot pop-up intro
@@ -35,45 +34,47 @@ $(document).ready(function() {
     //if you want the bot to start the conversation
     // action_trigger();
     send("/home");
-    $("#queryDrxData").validate({
-        // Specify validation rules
-        rules: {
-          queryDrxFname: "required",
-          queryDrxEmail: {
-            required: true,
-            email: true
-          }
-        },
-        // Specify validation error messages
-        messages: {
-          queryDrxFname: "Please enter your firstname",
-          queryDrxEmail: {
-            required: "Please provide a email address",
-            minlength: "Please provide a valid email address"
-          },
-          email: "Please enter a valid email address"
-        }
-      });
     
     $('body').on('click', '#sendData', function(e) {
-    e.preventDefault();
-    if($("#queryDrxData").valid()){
-    // the form is valid, do something
-        //localStorage.setItem("queryDrxFname", $("#queryDrxFname").val());
-        //localStorage.setItem("queryDrxEmail", $("#queryDrxEmail").val());
-        //localStorage.setItem("queryDrxComments", $("#queryDrxComments").val());
-        var name = $('#queryDrxFname').val();
-        var email = $('#queryDrxEmail').val();
-        var comment = $("#queryDrxComments").val();
-        $('#queryDrxData').parent().parent().remove();
-        message = JSON.stringify({"name":name,"email":email,"comment":comment});
-        message = "/form_data"+message;
-        console.log(message);
-        send(message);
-    } else{
-        // the form is invalid
-    }});  
-    
+		e.preventDefault();
+		$("#queryDrxData").validate({
+			// Specify validation rules
+			rules: {
+				queryDrxFname: {
+					required: true
+				},
+				queryDrxEmail: {
+					required: true,
+					email: true
+				}
+			},
+			// Specify validation error messages
+			messages: {
+				queryDrxFname: "Please enter your firstname",
+				queryDrxEmail: {
+					required: "Please provide a email address",
+					minlength: "Please provide a valid email address"
+				}
+			}
+		});
+		//alert('pk'+$("#queryDrxData").valid());
+		if($("#queryDrxData").valid()){
+		// the form is valid, do something
+			//localStorage.setItem("queryDrxFname", $("#queryDrxFname").val());
+			//localStorage.setItem("queryDrxEmail", $("#queryDrxEmail").val());
+			//localStorage.setItem("queryDrxComments", $("#queryDrxComments").val());
+			var name = $('#queryDrxFname').val();
+			var email = $('#queryDrxEmail').val();
+			var comment = $("#queryDrxComments").val();
+			$('#queryDrxData').parent().parent().remove();
+			message = JSON.stringify({"name":name,"email":email,"comment":comment});
+			message = "/form_data"+message;
+			console.log(message);
+			send(message);
+		} else{
+			// the form is invalid
+		}
+	});     
 
 });
 
