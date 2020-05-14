@@ -432,17 +432,17 @@ function addSuggestion(textToAdd) {
     setTimeout(function() {
         var suggestions = textToAdd;
         var suggLength = textToAdd.length;
-        $(' <div class="singleCard"> <div class="suggestions"><div class="menu"></div></div></diV>').appendTo(".chats").hide().fadeIn(1000);
+        $(' <div class="singleCard"> <div class="suggestions"><div class="chatbotMenu"></div></div></diV>').appendTo(".chats").hide().fadeIn(1000);
         // Loop through suggestions
         for (i = 0; i < suggLength; i++) {
-            $('<div class="menuChips" data-payload=\'' + (suggestions[i].payload) + '\'>' + suggestions[i].title + "</div>").appendTo(".menu");
+            $('<div class="chatbotMenuChips" data-payload=\'' + (suggestions[i].payload) + '\'>' + suggestions[i].title + "</div>").appendTo(".chatbotMenu");
         }
         scrollToBottomOfResults();
     }, 1000);
 }
 
 // on click of suggestions, get the value and send to rasa
-$(document).on("click", ".menu .menuChips", function() {
+$(document).on("click", ".chatbotMenu .chatbotMenuChips", function() {
     var text = this.innerText;
     var payload = this.getAttribute('data-payload');
     console.log("payload: ", this.getAttribute('data-payload'))

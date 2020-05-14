@@ -479,11 +479,11 @@ div.content_data::-webkit-scrollbar {
     margin-bottom: 5px;
 }
 
-.menu {
+.chatbotMenu {
     padding: 5px;
 }
 
-.menuChips {
+.chatbotMenuChips {
     display: block;
     background: #2c53af;
     color: #fff;
