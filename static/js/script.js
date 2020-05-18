@@ -8,15 +8,16 @@
 });*/
 
 //initialization
+var flag = 0;
 
-$(document).ready(function() { 
-
-
+$(document).ready(function() {
     //Bot pop-up intro
-    $("div").removeClass("tap-target-origin")
+    $("div").removeClass("tap-target-origin");
+	
+	$("#screenshotButton").hide();
 
     //drop down menu for close, restart conversation & clear the chats.
-    $('.dropdown-trigger').dropdown();
+    //$('.dropdown-trigger').dropdown();
 
     //initiate the modal for displaying the charts, if you dont have charts, then you comment the below line
     //$('.modal').modal();
@@ -34,55 +35,159 @@ $(document).ready(function() {
     //if you want the bot to start the conversation
     // action_trigger();
     send("/home");
-    
-    $('body').on('click', '#sendData', function(e) {
-		e.preventDefault();
-		$("#queryDrxData").validate({
-			// Specify validation rules
-			rules: {
-				queryDrxFname: {
-					required: true
-				},
-				queryDrxEmail: {
-					required: true,
-					email: true
-				}
-			},
-			// Specify validation error messages
-			messages: {
-				queryDrxFname: "Please enter your firstname",
-				queryDrxEmail: {
-					required: "Please provide a email address",
-					minlength: "Please provide a valid email address"
-				}
+    $("#queryDrxData").validate({
+        // Specify validation rules
+        rules: {
+            queryDrxFname: "required",
+            queryDrxEmail: {
+                required: true,
+                email: true
+            }
+        },
+        // Specify validation error messages
+        messages: {
+            queryDrxFname: "Please enter your firstname",
+            queryDrxEmail: {
+                required: "Please provide a email address",
+                minlength: "Please provide a valid email address"
+            },
+            email: "Please enter a valid email address"
+        }
+    });
+    var noteContent = '';
+
+    //speech to text code starts here
+	try {
+        //var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+		window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+		if (!window.SpeechRecognition) {
+			if (!window.webkitSpeechRecognition) {
+				// Implement graceful fail if browser doesn't support SpeechRecognition API
+				return;
 			}
-		});
-		//alert('pk'+$("#queryDrxData").valid());
-		if($("#queryDrxData").valid()){
-		// the form is valid, do something
-			//localStorage.setItem("queryDrxFname", $("#queryDrxFname").val());
-			//localStorage.setItem("queryDrxEmail", $("#queryDrxEmail").val());
-			//localStorage.setItem("queryDrxComments", $("#queryDrxComments").val());
-			var name = $('#queryDrxFname').val();
-			var email = $('#queryDrxEmail').val();
-			var comment = $("#queryDrxComments").val();
-			$('#queryDrxData').parent().parent().remove();
-			
-			showBotTyping();
-						
-			message = JSON.stringify({"name":name,"email":email,"comment":comment});
-			message = "/form_data"+message;
-			console.log(message);
-			send(message);
-		} else{
-			// the form is invalid
+			window.SpeechRecognition = window.webkitSpeechRecognition;
 		}
-	});     
+        var recognition = new window.SpeechRecognition();
+    } catch (e) {
+        console.error('SpeechRecognition-'+e);
+        $('.no-browser-support').show();
+        $('.app').hide();
+    }
+
+    recognition.continuous = true;
+    recognition.onresult = function(event) {
+        var current = event.resultIndex;
+        // Get a transcript of what was said.
+        var transcript = event.results[current][0].transcript;
+		//console.log(transcript);
+        var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+        if (!mobileRepeatBug) {
+            noteContent += transcript;
+            setUserResponse(noteContent);
+            send(noteContent);
+            noteContent = '';
+			
+			$("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');	
+			recognition.stop();      
+            if(!noteContent.length) {
+				var kk = 1;
+            
+            }
+            else {          
+				noteContent = '';
+				//noteTextarea.val('');
+				flag = 0;
+            }
+        }
+    };
+	
+
+	$('body').on('click', '#microphoneButton', function(e) {
+		console.log('pk');
+        if ($(this).html() == '<i class="fa fa-microphone" aria-hidden="true"></i>') {
+			console.log('if');
+            $(this).html('<i class="fa fa-volume-up" aria-hidden="true">');
+			recognition.start();
+			if (noteContent.length) {
+				noteContent += ' ';
+			}
+        } else {
+			recognition.stop(); 					
+			$("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');	
+			if(!noteContent.length) {
+				var kk = 1;
+			}
+			else {          
+				noteContent = '';
+				noteTextarea.val('');
+			}
+        }
+    });
+	
+    //ends here
+
+    $('body').on('click', '#sendData', function(e) {
+        e.preventDefault();
+        if ($("#queryDrxData").valid()) {
+            var name = $('#queryDrxFname').val();
+            var email = $('#queryDrxEmail').val();
+            var comment = $("#queryDrxComments").val();
+            $('#queryDrxData').parent().parent().remove();
+            message = JSON.stringify({
+                "name": name,
+                "email": email,
+                "comment": comment
+            });
+            message = "/form_data" + message;
+            console.log(message);
+            send(message);
+        } else {
+            // the form is invalid
+        }
+    });
+/* Screenshot script - Start */
+	$('body').on('click', '#screenshotButton', function(e) {		
+		const body = document.querySelector("body");
+		body.id = "capture";
+		html2canvas(document.querySelector("#capture"), {
+			allowTaint: false,
+			useCORS: true,
+		})
+		.then((canvas) => {
+			//document.querySelector('canvas').remove();
+			document.body.appendChild(canvas);
+		})
+		.then(() => {
+			var canvas = document.querySelector("canvas");
+			canvas.style.display = "none";
+			showBotTyping();
+			var dataURL = canvas.toDataURL();
+			$.ajax({
+				type: "POST",
+				url: "script.php",
+				data: {
+					imgBase64: dataURL,
+				},
+			}).done(function (data) {
+				var imgPath = (location.href + data).trim();
+				localStorage.setItem("screenshotImg", imgPath);
+				console.log(imgPath);
+				noteContent += '<img src="'+imgPath+'" width="150" height="150"/>';
+				setUserResponse(noteContent);
+				send(noteContent);
+				noteContent = '';				
+			});
+		});
+	});
+	/*
+	const btn = document.getElementById("screenshotButton");
+	btn.addEventListener("click", capture);*/
+	
+/* Screenshot script - End */	
 
 });
 
-function delete_form()
-{
+function delete_form() {
     document.getElementById("form_data").destroy();
 }
 // ========================== restart conversation ========================
@@ -91,10 +196,14 @@ function restartConversation() {
     //destroy the existing chart
     $('.collapsible').remove();
 
-    if (typeof chatChart !== 'undefined') { chatChart.destroy(); }
+    if (typeof chatChart !== 'undefined') {
+        chatChart.destroy();
+    }
 
     $(".chart-container").remove();
-    if (typeof modalChart !== 'undefined') { modalChart.destroy(); }
+    if (typeof modalChart !== 'undefined') {
+        modalChart.destroy();
+    }
     $(".chats").html("");
     $(".usrInput").val("");
     send("/restart");
@@ -109,7 +218,11 @@ function action_trigger() {
         url: API.actionExecute,
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ "name": action_name, "policy": "MappingPolicy", "confidence": "0.98" }),
+        data: JSON.stringify({
+            "name": action_name,
+            "policy": "MappingPolicy",
+            "confidence": "0.98"
+        }),
         success: function(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
 
@@ -138,15 +251,17 @@ $(".usrInput").on("keyup keypress", function(e) {
         if (text == "" || $.trim(text) == "") {
             e.preventDefault();
             return false;
-        } else { 
+        } else {
             //destroy the existing chart, if yu are not using charts, then comment the below lines
             $('.collapsible').remove();
-            if (typeof chatChart !== 'undefined') { chatChart.destroy(); }
+            if (typeof chatChart !== 'undefined') {
+                chatChart.destroy();
+            }
 
             $(".chart-container").remove();
-            if (typeof modalChart !== 'undefined') { modalChart.destroy(); }
-
-
+            if (typeof modalChart !== 'undefined') {
+                modalChart.destroy();
+            }
 
             $("#paginated_cards").remove();
             $(".suggestions").remove();
@@ -170,7 +285,9 @@ $("#sendButton").on("click", function(e) {
 
         chatChart.destroy();
         $(".chart-container").remove();
-        if (typeof modalChart !== 'undefined') { modalChart.destroy(); }
+        if (typeof modalChart !== 'undefined') {
+            modalChart.destroy();
+        }
 
         $(".suggestions").remove();
         $("#paginated_cards").remove();
@@ -208,7 +325,11 @@ function send(message) {
         url: API.webhook,
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ message: message, sender: user_id , metadata:"additional info"}),
+        data: JSON.stringify({
+            message: message,
+            sender: user_id,
+            metadata: "additional info"
+        }),
         success: function(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
 
@@ -267,18 +388,20 @@ function setBotResponse(response) {
                     var p = document.createElement('p');
                     p.className = "botMsg";
                     p.innerHTML = response[i].text;
-                    var div1= document.createElement('div');
+                    var div1 = document.createElement('div');
                     div1.className = 'clearfix';
                     var div2 = document.createElement('div');;
-                    div2.appendChild(img);div2.appendChild(p);div2.appendChild(div1);
-                    
+                    div2.appendChild(img);
+                    div2.appendChild(p);
+                    div2.appendChild(div1);
+
                     //div2.appendChild(dum);
                     $(div2).appendTo(".chats").hide().fadeIn(1000);
                 }
 
                 //check if the response contains "images"
                 if (response[i].hasOwnProperty("image")) {
-                    var BotResponse = '<img class="botAvatar" src="./static/img/128_chat_icon.png"/><p class="botMsg">' +  '<img class="imgcard" src="' + response[i].image + '">' + '</div><div class="clearfix">';
+                    var BotResponse = '<img class="botAvatar" src="./static/img/128_chat_icon.png"/><p class="botMsg">' + '<img class="imgcard" src="' + response[i].image + '">' + '</div><div class="clearfix">';
                     $(BotResponse).appendTo(".chats").hide().fadeIn(1000);
                 }
                 console.log(response[i]);

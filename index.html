@@ -6,10 +6,10 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		
-		<link rel="icon" href="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/H2H_Logo_400x400-345x259.png" sizes="32x32" />
+		<!--<link rel="icon" href="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/H2H_Logo_400x400-345x259.png" sizes="32x32" />
 		<link rel="icon" href="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/H2H_Logo_400x400-345x259.png" sizes="192x192" />
 		<link rel="apple-touch-icon-precomposed" href="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/H2H_Logo_400x400-345x259.png" />
-		<meta name="msapplication-TileImage" content="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/H2H_Logo_400x400-345x259.png" />		
+		<meta name="msapplication-TileImage" content="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/H2H_Logo_400x400-345x259.png" />		-->
 
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -31,9 +31,9 @@
             <div class="row">
                 <div class="col-md-4 col-xs-12 col-lg-4">
                     <div class="site-branding">
-                        <div class="site-logo-image">
+                        <!--<div class="site-logo-image">
                             <a href="http://h2hsolutions.com/" title="H2H Solutions" rel="home"><img src="http://h2hsolutions.com/wp-content/uploads/sites/4/2017/10/logo-1.png" alt="H2H Solutions" /></a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <!-- .col-md-4 .col-xs-12 .col-lg-4 -->
@@ -51,7 +51,7 @@
                         <h2>H2H Digital R<span style="text-transform: lowercase;">x</span><sup>TM</sup> Features</h2>
                         <p>
                             <b>Digital Rx is a “Qualified System” for the CMS Incentive Program!</b>
-                            <a href="http://h2hsolutions.com/wp-content/uploads/2017/02/Medicare_2009eRXMadeSimple.pdf" target="_blank"><strong>Learn more..</strong></a>
+                            <!--<a href="http://h2hsolutions.com/wp-content/uploads/2017/02/Medicare_2009eRXMadeSimple.pdf" target="_blank"><strong>Learn more..</strong></a>-->
                         </p>
                         <ul class="big-ul">
                             <li>State-of-the-art JAVA / J2EE platform available to any authorized Physician over the Internet, with no special software or hardware required within the physician’s office,</li>
@@ -80,15 +80,6 @@
                             H2H Digital Rx brings the sophistication of a comprehensive e-Prescribing platform to any interested Physician, inexpensively, and with minimal disruption to existing practice procedures. H2H would be pleased to
                             arrange a web cast viewing of Digital Rx at your convenience.
                         </p>
-                        <p class="text-center">
-                            <strong>Click here to see a Flash <a href="http://h2hsolutions.com/DigitalRxDEMO/Demo/Digital%20Rx%20Demo.html" target="_blank">DEMO!</a></strong>
-                        </p>
-                        <strong> </strong>
-                        <p><strong></strong></p>
-                        <div class="text-center">
-                            <img class="alignnone size-full wp-image-247" src="http://h2hsolutions.com/wp-content/uploads/2017/02/Seal_Certificate_2011_1.jpg" alt="" width="190" height="176" />
-                            <img class="alignnone size-medium wp-image-248" src="http://h2hsolutions.com/wp-content/uploads/2017/02/SSTaglineLogoGoldR3-300x182.jpg" alt="" width="300" height="182" />
-                        </div>
                     </main>
                     <!-- #main -->
                 </div>
@@ -114,6 +105,8 @@
                     <div class="keypad">
                         <div class="col s1">
                             <div id="screenshotButton"><i class="fa fa-camera" aria-hidden="true"></i></div>
+							<div id="microphoneButton"><i class="fa fa-microphone" aria-hidden="true"></i></div>
+							<!--<div id="speakerButton"><i class="fa fa-volume-up" aria-hidden="true"></i></div>-->
                         </div>
                         <div class="col s10">
                             <textarea id="userInput" placeholder="Type a message..." class="usrInput"></textarea>
@@ -140,48 +133,11 @@
 
         <!--Main Script -->
         <script type="text/javascript" src="static/js/config.js"></script>
-        <script type="text/javascript" src="static/js/script.js"></script>
 		<script type="text/javascript" src="static/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="static/js/script.js"></script>
 
         <!--Chart.js Script -->
         <script type="text/javascript" src="static/js/chart.min.js"></script>
-
-        <script type="text/javascript">
-		/*
-            const capture = () => {
-                const body = document.querySelector("body");
-                body.id = "capture";
-
-                html2canvas(document.querySelector("#capture"), {
-                    allowTaint: false,
-                    useCORS: true,
-                })
-                    .then((canvas) => {
-                        //document.querySelector('canvas').remove();
-                        document.body.appendChild(canvas);
-                    })
-                    .then(() => {
-                        var canvas = document.querySelector("canvas");
-                        canvas.style.display = "none";
-
-                        var dataURL = canvas.toDataURL();
-                        $.ajax({
-                            type: "POST",
-                            url: "script.php",
-                            data: {
-                                imgBase64: dataURL,
-                            },
-                        }).done(function (data) {
-                            localStorage.setItem("screenshotImg", location.href + data);
-                            console.log(localStorage.getItem("screenshotImg"));
-                        });
-                    });
-            };
-
-            const btn = document.getElementById("screenshotButton");
-            btn.addEventListener("click", capture);
-			*/
-        </script>
         <!-- Screenshot script - End -->
     </body>
 </html>

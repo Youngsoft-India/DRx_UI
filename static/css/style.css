@@ -174,7 +174,7 @@ textarea-webkit-scrollbar {
     border-radius: 0px 0px 10px 10px;
 
 }
-#screenshotButton {
+#screenshotButton, #speakerButton, #microphoneButton {
     height: 20px;
     width: 20px;
     border-radius: 50%;
