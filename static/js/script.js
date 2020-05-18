@@ -140,6 +140,7 @@ $(document).ready(function() {
                 screenshot =  localStorage.getItem('screenshotImg');
                 localStorage.removeItem('screenshotImg');
             }
+            $('#remove').parent().parent().remove();
             $('#queryDrxData').parent().parent().remove();
             message = JSON.stringify({
                 "name": name,
@@ -149,8 +150,8 @@ $(document).ready(function() {
             });
             message = "/form_data" + message;
             console.log(message);
+            showBotTyping();
             send(message);
-            
         } else {
             // the form is invalid
 			console.log("invalid");
