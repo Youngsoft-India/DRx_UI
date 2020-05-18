@@ -34,25 +34,7 @@ $(document).ready(function() {
     //if you want the bot to start the conversation
     // action_trigger();
     send("/home");
-    $("#queryDrxData").validate({
-        // Specify validation rules
-        rules: {
-            queryDrxFname: "required",
-            queryDrxEmail: {
-                required: true,
-                email: true
-            }
-        },
-        // Specify validation error messages
-        messages: {
-            queryDrxFname: "Please enter your firstname",
-            queryDrxEmail: {
-                required: "Please provide a email address",
-                minlength: "Please provide a valid email address"
-            },
-            email: "Please enter a valid email address"
-        }
-    });
+    
     var noteContent = '';
     //speech to text code starts here
 	try {
@@ -100,7 +82,7 @@ $(document).ready(function() {
     };
 	
 
-	$('body').on('click', '#microphoneButton', function(e) {
+	$('body').on('click', '#microphoneButton', function(e) {	
 		console.log('pk');
         if ($(this).html() == '<i class="fa fa-microphone" aria-hidden="true"></i>') {
 			console.log('if');
@@ -126,7 +108,29 @@ $(document).ready(function() {
 
     $('body').on('click', '#sendData', function(e) {
         e.preventDefault();
+		
+		$("#queryDrxData").validate({
+			// Specify validation rules
+			rules: {
+				queryDrxFname: "required",
+				queryDrxEmail: {
+					required: true,
+					email: true
+				}
+			},
+			// Specify validation error messages
+			messages: {
+				queryDrxFname: "Please enter your firstname",
+				queryDrxEmail: {
+					required: "Please provide a email address",
+					minlength: "Please provide a valid email address"
+				},
+				email: "Please enter a valid email address"
+			}
+		});
+		
         if ($("#queryDrxData").valid()) {
+			console.log("valid");
             var name = $('#queryDrxFname').val();
             var email = $('#queryDrxEmail').val();
             var comment = $("#queryDrxComments").val();
@@ -149,6 +153,7 @@ $(document).ready(function() {
             
         } else {
             // the form is invalid
+			console.log("invalid");
         }
     });
 /* Screenshot script - Start */
@@ -178,6 +183,8 @@ $(document).ready(function() {
 			}).done(function (data) {
 				var imgPath = (location.href + data).trim();
 				localStorage.setItem("screenshotImg", imgPath);
+				var str = '<div class="form-field"><img height="150" width="150" src="'+imgPath+'" alt="Screenshot"></div>';
+				$(str).insertAfter("#screenshotButton");
                 console.log(imgPath);
 				//noteContent += '<img src="'+imgPath+'" width="150" height="150"/>';
 				//setUserResponse(noteContent);
