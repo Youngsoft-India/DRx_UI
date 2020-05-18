@@ -9,7 +9,6 @@
 
 //initialization
 var flag = 0;
-
 $(document).ready(function() {
     //Bot pop-up intro
     $("div").removeClass("tap-target-origin");
@@ -55,7 +54,6 @@ $(document).ready(function() {
         }
     });
     var noteContent = '';
-
     //speech to text code starts here
 	try {
         //var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -132,15 +130,23 @@ $(document).ready(function() {
             var name = $('#queryDrxFname').val();
             var email = $('#queryDrxEmail').val();
             var comment = $("#queryDrxComments").val();
+            var screenshot = "";
+            if(localStorage.getItem('screenshotImg'))
+            {
+                screenshot =  localStorage.getItem('screenshotImg');
+                localStorage.removeItem('screenshotImg');
+            }
             $('#queryDrxData').parent().parent().remove();
             message = JSON.stringify({
                 "name": name,
                 "email": email,
-                "comment": comment
+                "comment": comment,
+                "image":screenshot
             });
             message = "/form_data" + message;
             console.log(message);
             send(message);
+            
         } else {
             // the form is invalid
         }
@@ -160,8 +166,9 @@ $(document).ready(function() {
 		.then(() => {
 			var canvas = document.querySelector("canvas");
 			canvas.style.display = "none";
-			showBotTyping();
-			var dataURL = canvas.toDataURL();
+			//showBotTyping();
+            var dataURL = canvas.toDataURL();
+            
 			$.ajax({
 				type: "POST",
 				url: "script.php",
@@ -171,10 +178,13 @@ $(document).ready(function() {
 			}).done(function (data) {
 				var imgPath = (location.href + data).trim();
 				localStorage.setItem("screenshotImg", imgPath);
-				console.log(imgPath);
-				noteContent += '<img src="'+imgPath+'" width="150" height="150"/>';
-				setUserResponse(noteContent);
-				send(noteContent);
+                console.log(imgPath);
+				//noteContent += '<img src="'+imgPath+'" width="150" height="150"/>';
+				//setUserResponse(noteContent);
+                //send(noteContent);
+                //let img = 'get_image'+JSON.stringify({"image":imgPath});
+                //console.log(img);
+                //send(img);
 				noteContent = '';				
 			});
 		});
