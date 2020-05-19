@@ -174,7 +174,13 @@ textarea-webkit-scrollbar {
     border-radius: 0px 0px 10px 10px;
 
 }
-#screenshotButton, #speakerButton, #microphoneButton {
+#screenshotButton{
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    color: #2b2bab;
+}
+#speakerButton, #microphoneButton {
     height: 20px;
     width: 20px;
     border-radius: 50%;
