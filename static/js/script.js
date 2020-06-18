@@ -8,6 +8,12 @@
 });*/
 
 //initialization
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  
 var flag = 0;
 $(document).ready(function() {
     //Bot pop-up intro
@@ -33,8 +39,8 @@ $(document).ready(function() {
 
     //if you want the bot to start the conversation
     // action_trigger();
+    user_id = uuidv4();
     send("/home");
-    
     var noteContent = '';
     //speech to text code starts here
 	try {
@@ -225,7 +231,8 @@ function restartConversation() {
     $(".chats").html("");
     $(".usrInput").val("");
     send("/restart");
-    send("/home")
+    user_id = uuidv4();
+    send("/home");
 }
 
 // ========================== let the bot start the conversation ========================
