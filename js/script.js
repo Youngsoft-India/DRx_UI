@@ -5,7 +5,7 @@ function uuidv4() {
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
-
+user_id = uuidv4() + "_" + Date.now();
 var flag = 0;
 $(document).ready(function() {
 
@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     //global variables
     action_name = "main options";
-    user_id = uuidv4() + "_" + Date.now();
+    
 
     /* Voice to Text - Start */
     var noteContent = '';
@@ -369,10 +369,11 @@ function initChatbot(message) {
         }),
         success: function(botResponse, status) {
             console.log("Response from Rasa: ", botResponse, "\nStatus: ", status);
-			var vName = [11100, 11111, 11122, 11133, 11144, 11155, 11166, 11177, 11188, 11199];
-			var vTheme = botResponse.vendorTheme?botResponse.vendorTheme:"#0345c2"; //["#0345c2", "#990033","#0345c2","#0345c3","#0345c4","#0345c5","#0345c6","#666666","#0345c2","#0345c2"];
-			var res = {vendorName:vName, vendorTheme:vTheme, vendorLogo:""}
-			
+            var response = botResponse[0]["custom"];            
+			// var vName = [11100, 11111, 11122, 11133, 11144, 11155, 11166, 11177, 11188, 11199];
+			var vTheme = response.vendorTheme?response.vendorTheme:"#0345c2"; //["#0345c2", "#990033","#0345c2","#0345c3","#0345c4","#0345c5","#0345c6","#666666","#0345c2","#0345c2"];
+			// var res = {vendorName:vName, vendorTheme:vTheme, vendorLogo:""}
+			console.log(vTheme);
 			/*  VARIABLE DECLARATION */
 			let root = document.documentElement;
 			root.style.setProperty('--primary-color', vTheme);
