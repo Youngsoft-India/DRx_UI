@@ -5,7 +5,31 @@ function uuidv4() {
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
-user_id = uuidv4() + "_" + Date.now();
+
+function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+    
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    
+    // Return null if not found
+    return null;
+}
+
+//user_id = uuidv4() + "_" + Date.now();
+//user_id = getCookie("jsessionid"); 
+user_id = "iHsMsLY5P_g1E1Dp3R4BGfN-A9JVkSWoUGJtvctC.ubuntu";
+
 var flag = 0;
 $(document).ready(function() {
 
