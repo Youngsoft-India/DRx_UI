@@ -226,9 +226,9 @@ function restartConversation() {
     }
     $(".chats").html("");
     $(".usrInput").val("");
-    send("/restart");
-    user_id = uuidv4();
-    send("/home");
+    send("/restart_conversation");
+    // user_id = uuidv4();
+    // send("/home");
 }
 
 // ========================== let the bot start the conversation ========================
