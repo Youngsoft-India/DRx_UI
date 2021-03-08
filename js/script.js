@@ -1,3 +1,36 @@
+// IE browser default color theme 
+if(navigator.userAgent.match(/Trident\/7\./)) {  
+	$('link[href="css/h2h_chatbot.css"]').attr('href','css/h2h_chatbot_ie.css');
+}
+// Get Cookie for localStorage Chat Data Storage
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+// Set Cookie for localStorage Chat Data Storage
+function setCookie(cname,cvalue,exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*60*1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+// Update Chat Data in localStorage   
+function updateChatSessionData(){ 
+	localStorage.setItem("chatbotData",  $('.chats').html()); 
+}
+
+
 //initialization
 function uuidv4() {
     //var uuidv4 = 
@@ -25,7 +58,10 @@ function getCookie(name) {
     return null;
 }
 
+var user=getCookie("drxChatbot");
+if(user == undefined || user == null){
 user_id = uuidv4() + "_" + Date.now();
+} 
 
 var flag = 0;
 $(document).ready(function() {
@@ -245,6 +281,7 @@ function scrollToBottomOfResults() {
 
 //============== send the user message to rasa server =============================================
 function send(message) {
+	showBotTyping();
     $.ajax({
         url: API.webhook,
         type: "POST",
@@ -282,6 +319,7 @@ function send(message) {
 
 /* Loads the chatbot as per Vendor - Start */
 function initChatbot(message) {
+	showBotTyping();
     $.ajax({
         url: API.webhook,
         type: "POST",
@@ -316,6 +354,15 @@ function initChatbot(message) {
             console.log("Error from bot end: ", textStatus);
         }
     });
+	
+	// load Chat window with localStorage
+	if (user == "drxchatbot") {  
+		$('.drx_chatbot_widget').addClass('active');
+		$('.chat_window').addClass('active');
+		$(".chatbot_icon").fadeOut();  
+		$('.drx_chatbot_widget .chats').html(localStorage.getItem("chatbotData"))  
+		$('.chat_bubble').css('opacity', '1').fadeIn();
+	}
 }
 /* Loads the chatbot as per Vendor - End */
 
@@ -473,6 +520,7 @@ function setBotResponse(response) {
         }
         scrollToBottomOfResults();
         $('#userInput').focus();
+		updateChatSessionData();
     }
 }
 //====================================== Toggle chatbot =======================================
