@@ -26,9 +26,9 @@ function getCookie(name) {
     return null;
 }
 
-//user_id = uuidv4() + "_" + Date.now();
+user_id = uuidv4() + "_" + Date.now();
 //user_id = getCookie("jsessionid"); 
-user_id = "iHsMsLY5P_g1E1Dp3R4BGfN-A9JVkSWoUGJtvctC.ubuntu";
+//user_id = "iHsMsLY5P_g1E1Dp3R4BGfN-A9JVkSWoUGJtvctC.ubuntu";
 
 var flag = 0;
 $(document).ready(function() {
