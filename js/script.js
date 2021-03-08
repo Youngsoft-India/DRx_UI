@@ -14,8 +14,7 @@ function getCookie(name) {
     for(var i = 0; i < cookieArr.length; i++) {
         var cookiePair = cookieArr[i].split("=");
         
-        /* Removing whitespace at the beginning of the cookie name
-        and compare it with the given string */
+        /* Removing whitespace at the beginning of the cookie name and compare it with the given string */
         if(name == cookiePair[0].trim()) {
             // Decode the cookie value and return
             return decodeURIComponent(cookiePair[1]);
@@ -27,8 +26,6 @@ function getCookie(name) {
 }
 
 user_id = uuidv4() + "_" + Date.now();
-//user_id = getCookie("jsessionid"); 
-//user_id = "iHsMsLY5P_g1E1Dp3R4BGfN-A9JVkSWoUGJtvctC.ubuntu";
 
 var flag = 0;
 $(document).ready(function() {
@@ -43,6 +40,7 @@ $(document).ready(function() {
     
 
     /* Voice to Text - Start */
+	/*
     var noteContent = '';
     try {
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -104,106 +102,8 @@ $(document).ready(function() {
             }
         }
     });
-    /* Voice to Text - End */
-
-    /* Submit Form - Start */
-    /*
-        $('body').on('click', '#sendData', function(e) {
-            e.preventDefault();
-    		
-    		$("#queryDrxData").validate({
-    			// Specify validation rules
-    			rules: {
-    				queryDrxFname: "required",
-    				queryDrxEmail: {
-    					required: true,
-    					email: true
-    				}
-    			},
-    			// Specify validation error messages
-    			messages: {
-    				queryDrxFname: "Please enter your firstname",
-    				queryDrxEmail: {
-    					required: "Please provide a email address",
-    					minlength: "Please provide a valid email address"
-    				},
-    				email: "Please enter a valid email address"
-    			}
-    		});
-    		
-            if ($("#queryDrxData").valid()) {
-    			console.log("valid");
-                var name = $('#queryDrxFname').val();
-                var email = $('#queryDrxEmail').val();
-                var comment = $("#queryDrxComments").val();
-                var screenshot = "";
-                if(localStorage.getItem('screenshotImg'))
-                {
-                    screenshot =  localStorage.getItem('screenshotImg');
-                    localStorage.removeItem('screenshotImg');
-                }
-                $('#remove').parent().parent().remove();
-                $('#queryDrxData').parent().parent().remove();
-                message = JSON.stringify({
-                    "name": name,
-                    "email": email,
-                    "comment": comment,
-                    "image":screenshot
-                });
-                message = "/form_data" + message;
-                console.log(message);
-                showBotTyping();
-                send(message);
-            } else {
-                // the form is invalid
-    			console.log("invalid");
-            }
-        });
-    */
-    /* Submit Form - End */
-
-    /* Screenshot script - Start */
-    /*
-	$('body').on('click', '#screenshotButton', function(e) {		
-		const body = document.querySelector("body");
-		body.id = "capture";
-		html2canvas(document.querySelector("#capture"), {
-			allowTaint: false,
-			useCORS: true,
-		})
-		.then((canvas) => {
-			//document.querySelector('canvas').remove();
-			document.body.appendChild(canvas);
-		})
-		.then(() => {
-			var canvas = document.querySelector("canvas");
-			canvas.style.display = "none";
-			//showBotTyping();
-            var dataURL = canvas.toDataURL();
-            
-			$.ajax({
-				type: "POST",
-				url: "script.php",
-				data: {
-					imgBase64: dataURL,
-				},
-			}).done(function (data) {
-				var imgPath = (location.href + data).trim();
-				localStorage.setItem("screenshotImg", imgPath);
-				var str = '<div class="form-field"><img height="150" width="150" src="'+imgPath+'" alt="Screenshot"></div>';
-				$(str).insertAfter("#screenshotButton");
-                console.log(imgPath);
-				
-				noteContent = '';				
-			});
-		});
-	});
 	*/
-    /*
-    const btn = document.getElementById("screenshotButton");
-    btn.addEventListener("click", capture);*/
-
-    /* Screenshot script - End */
+    /* Voice to Text - End */
 
 });
 
@@ -555,11 +455,7 @@ function setBotResponse(response) {
 
 
         }
-        console.log(n.innerHTML + 'nvalue')
-
-
-
-
+        console.log(n.innerHTML + 'nvalue');
         switch (f) {
             case true:
                 $(".faq_window .faq").empty();
@@ -577,19 +473,13 @@ function setBotResponse(response) {
         }
         scrollToBottomOfResults();
         $('#userInput').focus();
-
-
-
     }
-
-
 }
 //====================================== Toggle chatbot =======================================
 $("#profile_div").click(function() {
     $(".profile_div").toggle();
     $(".widget").toggle();
 });
-
 
 //====================================== Render Pdf attachment =======================================
 function renderPdfAttachment(data) {
@@ -607,8 +497,6 @@ function renderPdfAttachment(data) {
     $(".chats").append(pdf_attachment);
     scrollToBottomOfResults();
 }
-
-
 
 //====================================== DropDown ==================================================
 //render the dropdown messageand handle user selection
@@ -637,8 +525,6 @@ function renderDropDwon(data) {
 }
 
 //====================================== Suggestions ===========================================
-
-
 
 // on click of suggestions, get the value and send to rasa
 $(document).on("click", ".chatbot_btns", function() {
