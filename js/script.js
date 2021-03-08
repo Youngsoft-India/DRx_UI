@@ -7,28 +7,17 @@ function uuidv4() {
 }
 
 function getCookie(name) {
-    // Split cookie string and get all individual name=value pairs in an array
     var cookieArr = document.cookie.split(";");
-    
-    // Loop through the array elements
     for(var i = 0; i < cookieArr.length; i++) {
         var cookiePair = cookieArr[i].split("=");
-        
-        /* Removing whitespace at the beginning of the cookie name
-        and compare it with the given string */
         if(name == cookiePair[0].trim()) {
-            // Decode the cookie value and return
             return decodeURIComponent(cookiePair[1]);
         }
-    }
-    
-    // Return null if not found
+    }    
     return null;
 }
 
 user_id = uuidv4() + "_" + Date.now();
-//user_id = getCookie("jsessionid"); 
-//user_id = "iHsMsLY5P_g1E1Dp3R4BGfN-A9JVkSWoUGJtvctC.ubuntu";
 
 var flag = 0;
 $(document).ready(function() {
@@ -40,171 +29,6 @@ $(document).ready(function() {
 
     //global variables
     action_name = "main options";
-    
-
-    /* Voice to Text - Start */
-    var noteContent = '';
-    try {
-        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!window.SpeechRecognition) {
-            if (!window.webkitSpeechRecognition) {
-                // Implement graceful fail if browser doesn't support SpeechRecognition API
-                return;
-            }
-            window.SpeechRecognition = window.webkitSpeechRecognition;
-        }
-        var recognition = new window.SpeechRecognition();
-    } catch (e) {
-        console.error('SpeechRecognition-' + e);
-        $('.no-browser-support').show();
-        $('.app').hide();
-    }
-    recognition.continuous = true;
-    recognition.onresult = function(event) {
-        var current = event.resultIndex;
-        // Get a transcript of what was said.
-        var transcript = event.results[current][0].transcript;
-        //console.log(transcript);
-        var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
-        if (!mobileRepeatBug) {
-            noteContent += transcript;
-            setUserResponse(noteContent);
-            send(noteContent);
-            noteContent = '';
-
-            $("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');
-            recognition.stop();
-            if (!noteContent.length) {
-                var kk = 1;
-
-            } else {
-                noteContent = '';
-                //noteTextarea.val('');
-                flag = 0;
-            }
-        }
-    };
-    $('body').on('click', '#microphoneButton', function(e) {
-        console.log('pk');
-        if ($(this).html() == '<i class="fa fa-microphone" aria-hidden="true"></i>') {
-            console.log('if');
-            $(this).html('<i class="fa fa-volume-up" aria-hidden="true">');
-            recognition.start();
-            if (noteContent.length) {
-                noteContent += ' ';
-            }
-        } else {
-            recognition.stop();
-            $("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');
-            if (!noteContent.length) {
-                var kk = 1;
-            } else {
-                noteContent = '';
-                noteTextarea.val('');
-            }
-        }
-    });
-    /* Voice to Text - End */
-
-    /* Submit Form - Start */
-    /*
-        $('body').on('click', '#sendData', function(e) {
-            e.preventDefault();
-    		
-    		$("#queryDrxData").validate({
-    			// Specify validation rules
-    			rules: {
-    				queryDrxFname: "required",
-    				queryDrxEmail: {
-    					required: true,
-    					email: true
-    				}
-    			},
-    			// Specify validation error messages
-    			messages: {
-    				queryDrxFname: "Please enter your firstname",
-    				queryDrxEmail: {
-    					required: "Please provide a email address",
-    					minlength: "Please provide a valid email address"
-    				},
-    				email: "Please enter a valid email address"
-    			}
-    		});
-    		
-            if ($("#queryDrxData").valid()) {
-    			console.log("valid");
-                var name = $('#queryDrxFname').val();
-                var email = $('#queryDrxEmail').val();
-                var comment = $("#queryDrxComments").val();
-                var screenshot = "";
-                if(localStorage.getItem('screenshotImg'))
-                {
-                    screenshot =  localStorage.getItem('screenshotImg');
-                    localStorage.removeItem('screenshotImg');
-                }
-                $('#remove').parent().parent().remove();
-                $('#queryDrxData').parent().parent().remove();
-                message = JSON.stringify({
-                    "name": name,
-                    "email": email,
-                    "comment": comment,
-                    "image":screenshot
-                });
-                message = "/form_data" + message;
-                console.log(message);
-                showBotTyping();
-                send(message);
-            } else {
-                // the form is invalid
-    			console.log("invalid");
-            }
-        });
-    */
-    /* Submit Form - End */
-
-    /* Screenshot script - Start */
-    /*
-	$('body').on('click', '#screenshotButton', function(e) {		
-		const body = document.querySelector("body");
-		body.id = "capture";
-		html2canvas(document.querySelector("#capture"), {
-			allowTaint: false,
-			useCORS: true,
-		})
-		.then((canvas) => {
-			//document.querySelector('canvas').remove();
-			document.body.appendChild(canvas);
-		})
-		.then(() => {
-			var canvas = document.querySelector("canvas");
-			canvas.style.display = "none";
-			//showBotTyping();
-            var dataURL = canvas.toDataURL();
-            
-			$.ajax({
-				type: "POST",
-				url: "script.php",
-				data: {
-					imgBase64: dataURL,
-				},
-			}).done(function (data) {
-				var imgPath = (location.href + data).trim();
-				localStorage.setItem("screenshotImg", imgPath);
-				var str = '<div class="form-field"><img height="150" width="150" src="'+imgPath+'" alt="Screenshot"></div>';
-				$(str).insertAfter("#screenshotButton");
-                console.log(imgPath);
-				
-				noteContent = '';				
-			});
-		});
-	});
-	*/
-    /*
-    const btn = document.getElementById("screenshotButton");
-    btn.addEventListener("click", capture);*/
-
-    /* Screenshot script - End */
-
 });
 
 function delete_form() {
@@ -367,12 +191,7 @@ function send(message) {
         error: function(xhr, textStatus, errorThrown) {
 
             if (message.toLowerCase() == '/restart') {
-                // $("#userInput").prop('disabled', false);
-                //if you want the bot to start the conversation after the restart action.
-                // action_trigger();
-                // return;
             }
-
             // if there is no response from rasa server
             setBotResponse("");
             console.log("Error from bot end: ", textStatus);
@@ -555,11 +374,8 @@ function setBotResponse(response) {
 
 
         }
-        console.log(n.innerHTML + 'nvalue')
-
-
-
-
+        console.log(n.innerHTML + 'nvalue');
+		
         switch (f) {
             case true:
                 $(".faq_window .faq").empty();
@@ -577,20 +393,13 @@ function setBotResponse(response) {
         }
         scrollToBottomOfResults();
         $('#userInput').focus();
-
-
-
     }
-
-
 }
 //====================================== Toggle chatbot =======================================
 $("#profile_div").click(function() {
     $(".profile_div").toggle();
     $(".widget").toggle();
 });
-
-
 //====================================== Render Pdf attachment =======================================
 function renderPdfAttachment(data) {
     pdf_url = data.custom.url;
@@ -607,9 +416,6 @@ function renderPdfAttachment(data) {
     $(".chats").append(pdf_attachment);
     scrollToBottomOfResults();
 }
-
-
-
 //====================================== DropDown ==================================================
 //render the dropdown messageand handle user selection
 function renderDropDwon(data) {
@@ -637,8 +443,6 @@ function renderDropDwon(data) {
 }
 
 //====================================== Suggestions ===========================================
-
-
 
 // on click of suggestions, get the value and send to rasa
 $(document).on("click", ".chatbot_btns", function() {
@@ -936,19 +740,14 @@ function createChart(title, labels, backgroundColor, chartsData, chartType, disp
 
 // on click of expand button, get the chart data from gloabl variable & render it to modal
 $(document).on("click", "#expand", function() {
-
     //the parameters are declared gloabally while we get the charts data from rasa.
     createChartinModal(title, labels, backgroundColor, chartsData, chartType, displayLegend)
 });
 
 //function to render the charts in the modal
 function createChartinModal(title, labels, backgroundColor, chartsData, chartType, displayLegend) {
-    //if you want to display the charts in modal, make sure you have configured the modal in index.html
-    //create the context that will draw the charts over the canvas in the "#modal-chart" div of the modal
+	
     var ctx = $('#modal-chart');
-
-    // Once you have the element or context, instantiate the chart-type by passing the configuration,
-    //for more info. refer: https://www.chartjs.org/docs/latest/configuration/
     var data = {
         labels: labels,
         datasets: [{
