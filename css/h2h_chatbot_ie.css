@@ -387,10 +387,7 @@ h2 {
 .drx_chatbot_widget .contentarea .btn:hover {
 	background: #fff;
 	color: #0345c2;
-	font-size: 14px;
-	transform: scale(1.01);
-	margin-top: -1px;
-	margin-left: -1px;
+	font-size: 14px; 
 }
 
 .drx_chatbot_widget .contentarea .btn svg {
