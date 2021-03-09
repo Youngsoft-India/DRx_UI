@@ -1,23 +1,40 @@
+// IE browser default color theme 
+if(navigator.userAgent.match(/Trident\/7\./)) {  
+	$('link[href="css/h2h_chatbot.css"]').attr('href','css/h2h_chatbot_ie.css');
+}
+ 
+
+
 //initialization
 function uuidv4() {
     //var uuidv4 = 
+    /* IE browser not supporing this code
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
+    */
 }
 
 function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
     var cookieArr = document.cookie.split(";");
+    
+    // Loop through the array elements
     for(var i = 0; i < cookieArr.length; i++) {
         var cookiePair = cookieArr[i].split("=");
+        
+        /* Removing whitespace at the beginning of the cookie name and compare it with the given string */
         if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
             return decodeURIComponent(cookiePair[1]);
         }
-    }    
+    }
+    
+    // Return null if not found
     return null;
 }
-
-user_id = uuidv4() + "_" + Date.now();
+ 
+user_id = uuidv4() + "_" + Date.now(); 
 
 var flag = 0;
 $(document).ready(function() {
@@ -29,6 +46,74 @@ $(document).ready(function() {
 
     //global variables
     action_name = "main options";
+    
+
+    /* Voice to Text - Start */
+	/*
+    var noteContent = '';
+    try {
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!window.SpeechRecognition) {
+            if (!window.webkitSpeechRecognition) {
+                // Implement graceful fail if browser doesn't support SpeechRecognition API
+                return;
+            }
+            window.SpeechRecognition = window.webkitSpeechRecognition;
+        }
+        var recognition = new window.SpeechRecognition();
+    } catch (e) {
+        console.error('SpeechRecognition-' + e);
+        $('.no-browser-support').show();
+        $('.app').hide();
+    }
+    recognition.continuous = true;
+    recognition.onresult = function(event) {
+        var current = event.resultIndex;
+        // Get a transcript of what was said.
+        var transcript = event.results[current][0].transcript;
+        //console.log(transcript);
+        var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+        if (!mobileRepeatBug) {
+            noteContent += transcript;
+            setUserResponse(noteContent);
+            send(noteContent);
+            noteContent = '';
+
+            $("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');
+            recognition.stop();
+            if (!noteContent.length) {
+                var kk = 1;
+
+            } else {
+                noteContent = '';
+                //noteTextarea.val('');
+                flag = 0;
+            }
+        }
+    };
+    $('body').on('click', '#microphoneButton', function(e) {
+        console.log('pk');
+        if ($(this).html() == '<i class="fa fa-microphone" aria-hidden="true"></i>') {
+            console.log('if');
+            $(this).html('<i class="fa fa-volume-up" aria-hidden="true">');
+            recognition.start();
+            if (noteContent.length) {
+                noteContent += ' ';
+            }
+        } else {
+            recognition.stop();
+            $("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');
+            if (!noteContent.length) {
+                var kk = 1;
+            } else {
+                noteContent = '';
+                noteTextarea.val('');
+            }
+        }
+    });
+	*/
+    /* Voice to Text - End */
+
 });
 
 function delete_form() {
@@ -152,8 +237,7 @@ function setUserResponse(message) {
 
     $(".usrInput").val("");
     $(UserResponse).appendTo(".chats").hide().fadeIn().before('<div class="clr"></div>');
-    scrollToBottomOfResults();
-    showBotTyping();
+    scrollToBottomOfResults(); 
     $(".suggestions").remove();
 }
 
@@ -169,6 +253,7 @@ function scrollToBottomOfResults() {
 
 //============== send the user message to rasa server =============================================
 function send(message) {
+	showBotTyping();
     $.ajax({
         url: API.webhook,
         type: "POST",
@@ -191,7 +276,12 @@ function send(message) {
         error: function(xhr, textStatus, errorThrown) {
 
             if (message.toLowerCase() == '/restart') {
+                // $("#userInput").prop('disabled', false);
+                //if you want the bot to start the conversation after the restart action.
+                // action_trigger();
+                // return;
             }
+
             // if there is no response from rasa server
             setBotResponse("");
             console.log("Error from bot end: ", textStatus);
@@ -201,6 +291,7 @@ function send(message) {
 
 /* Loads the chatbot as per Vendor - Start */
 function initChatbot(message) {
+	showBotTyping();
     $.ajax({
         url: API.webhook,
         type: "POST",
@@ -235,6 +326,7 @@ function initChatbot(message) {
             console.log("Error from bot end: ", textStatus);
         }
     });
+	 
 }
 /* Loads the chatbot as per Vendor - End */
 
@@ -309,7 +401,8 @@ function setBotResponse(response) {
                 //check if the custom payload type is "quickReplies"
                 if (response[i].custom.payload == "quickReplies") {
                     quickRepliesData = response[i].custom.data;
-                    showQuickReplies(quickRepliesData);
+                    
+                    //showQuickReplies(quickRepliesData); // IE browser not supporing this code
                     return;
                 }
 
@@ -375,7 +468,6 @@ function setBotResponse(response) {
 
         }
         console.log(n.innerHTML + 'nvalue');
-		
         switch (f) {
             case true:
                 $(".faq_window .faq").empty();
@@ -392,7 +484,7 @@ function setBotResponse(response) {
 
         }
         scrollToBottomOfResults();
-        $('#userInput').focus();
+        $('#userInput').focus(); 
     }
 }
 //====================================== Toggle chatbot =======================================
@@ -400,6 +492,7 @@ $("#profile_div").click(function() {
     $(".profile_div").toggle();
     $(".widget").toggle();
 });
+
 //====================================== Render Pdf attachment =======================================
 function renderPdfAttachment(data) {
     pdf_url = data.custom.url;
@@ -416,6 +509,7 @@ function renderPdfAttachment(data) {
     $(".chats").append(pdf_attachment);
     scrollToBottomOfResults();
 }
+
 //====================================== DropDown ==================================================
 //render the dropdown messageand handle user selection
 function renderDropDwon(data) {
@@ -544,6 +638,7 @@ function createCardsCarousel(cardsData) {
 
 //====================================== Quick Replies ==================================================
 
+/* IE browser not supporing this code
 function showQuickReplies(quickRepliesData) {
     var chips = ""
     for (i = 0; i < quickRepliesData.length; i++) {
@@ -582,7 +677,7 @@ function showQuickReplies(quickRepliesData) {
     });
 
 }
-
+*/
 // on click of quickreplies, get the value and send to rasa
 $(document).on("click", ".quickReplies .chip", function() {
     var text = this.innerText;
@@ -612,8 +707,7 @@ function getUserPosition(position) {
     //here you add the intent which you want to trigger 
     response = '/inform{"latitude":' + position.coords.latitude + ',"longitude":' + position.coords.longitude + '}';
     $("#userInput").prop('disabled', false);
-    send(response);
-    showBotTyping();
+    send(response); 
 }
 
 function handleLocationAccessError(error) {
@@ -635,7 +729,7 @@ function handleLocationAccessError(error) {
 
     response = '/inform{"user_location":"deny"}';
     send(response);
-    showBotTyping();
+    
     $(".usrInput").val("");
     $("#userInput").prop('disabled', false);
 
@@ -740,14 +834,19 @@ function createChart(title, labels, backgroundColor, chartsData, chartType, disp
 
 // on click of expand button, get the chart data from gloabl variable & render it to modal
 $(document).on("click", "#expand", function() {
+
     //the parameters are declared gloabally while we get the charts data from rasa.
     createChartinModal(title, labels, backgroundColor, chartsData, chartType, displayLegend)
 });
 
 //function to render the charts in the modal
 function createChartinModal(title, labels, backgroundColor, chartsData, chartType, displayLegend) {
-	
+    //if you want to display the charts in modal, make sure you have configured the modal in index.html
+    //create the context that will draw the charts over the canvas in the "#modal-chart" div of the modal
     var ctx = $('#modal-chart');
+
+    // Once you have the element or context, instantiate the chart-type by passing the configuration,
+    //for more info. refer: https://www.chartjs.org/docs/latest/configuration/
     var data = {
         labels: labels,
         datasets: [{
@@ -803,7 +902,7 @@ $(".send_us ").bind("click", function() {
     $('.start_window').removeClass('active');
     $('.chat_window').addClass('active');
     $('.contentarea.chats').empty();
-    send("/home");
+    send("/home"); 
 });
 $(".chatbot_back  ").bind("click", function() {
     $('.start_window').addClass('active');

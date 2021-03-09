@@ -1,5 +1,5 @@
 body {
-	background-color: var(--primary-color);
+	background-color: #0345c2;
 }
 
 body:before {
@@ -22,12 +22,12 @@ b {
 }
 
 h2 {
-	color: var(--primary-color);
+	color: #0345c2;
 	font-weight: 100;
 }
 
 .content-area {
-	background: var(--white-color);
+	background: #fff;
 	padding: 10px 30px;
 	margin: 10px auto;
 	border-radius: 10px;
@@ -42,7 +42,7 @@ h2 {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: var(--primary-color);
+	background: #0345c2;
 }
 /* SCROLLBAR COLOR END */
 
@@ -128,8 +128,8 @@ h2 {
 	position: absolute;
 	z-index: 5;
 	width: 400px;
-	border: 1px solid var(--primary-color);
-	background: var(--primary-color);
+	border: 1px solid #0345c2;
+	background: #0345c2;
 	bottom: 0;
 	top: 0;
 	border-radius: 20px;
@@ -161,7 +161,7 @@ h2 {
 
  
 .drx_chatbot_widget .title .chatbot_logo {
-	background-image: var(--verndor-logo);
+	background-image: url(../images/chatbot_logo.png);
 	background-repeat: no-repeat;
 	width: 35px;
 	height: 35px;
@@ -182,7 +182,7 @@ h2 {
 	top: 20px;
 	cursor: pointer;
 	border-radius: 50%;
-	color: var(--white-color);
+	color: #fff;
 	font-size: 16px;
 	padding: 4px 10px;
 	display: inline-block;
@@ -241,8 +241,8 @@ h2 {
 .drx_chatbot_widget .header {
 	padding: 30px 30px 20px;
 	background: rgb(0, 27, 83);
-	color: var(--white-color);
-	background: var(--primary-color);
+	color: #fff;
+	background: #0345c2;
 	position: relative;
 }
 
@@ -276,7 +276,7 @@ h2 {
 }
 
 .drx_chatbot_widget .chatbot_logo {
-	background-image: var(--verndor-logo);
+	background-image: url(../images/chatbot_logo.png);
 	background-repeat: no-repeat;
 	width: 100%;
 	height: 60px;
@@ -285,7 +285,7 @@ h2 {
 }
 .drx_chatbot_widget .header h1 {
 	font-size: 36px;
-	color: var(--white-color);
+	color: #fff;
 	position: relative;
 }
 
@@ -295,7 +295,7 @@ h2 {
 
 .drx_chatbot_widget .header h2 {
 	font-size: 22px;
-	color: var(--white-color);
+	color: #fff;
 	font-weight: 100;
 	line-height: 35px;
 	position: relative;
@@ -303,7 +303,7 @@ h2 {
 
 .drx_chatbot_widget .header h3 {
 	font-size: 18px;
-	color: var(--white-color);
+	color: #fff;
 	font-weight: 100;
 	position: relative;
 }
@@ -311,8 +311,8 @@ h2 {
 .drx_chatbot_widget .sub-content {
 	border-bottom: 0;
 	padding: 20px 30px;
-	color: var(--black-color);
-	background: var(--primary-color);
+	color: #000;
+	background: #0345c2;
 	position: relative;
 }
 
@@ -366,16 +366,16 @@ h2 {
 }
 
 .drx_chatbot_widget .contentarea .times {
-	color: var(--primary-color);
+	color: #0345c2;
 	width: 16px;
 	height: 16px;
 }
 
 .drx_chatbot_widget .contentarea .chatbotMenuChips ,
 .drx_chatbot_widget .contentarea .btn {
-	background: var(--primary-color);
-	border: 1px solid var(--primary-color);
-	color: var(--white-color);
+	background: #0345c2;
+	border: 1px solid #0345c2;
+	color: #fff;
 	font-size: 14px;
 	padding: 6px 15px;
 	transition: all 0.16s ease-in-out 0s;
@@ -385,8 +385,8 @@ h2 {
 }
 .drx_chatbot_widget .contentarea .chatbotMenuChips:hover ,
 .drx_chatbot_widget .contentarea .btn:hover {
-	background: var(--white-color);
-	color: var(--primary-color);
+	background: #fff;
+	color: #0345c2;
 	font-size: 14px;
 	transform: scale(1.01);
 	margin-top: -1px;
@@ -400,8 +400,8 @@ h2 {
 }
 
 .drx_chatbot_widget .chat_bubble {
-	border: 1px solid var(--primary-color);
-	background: var(--white-color);
+	border: 1px solid #0345c2;
+	background: #fff;
 	border-radius: 0px 10px 10px 10px;
 	margin-top: 10px;
 	position: relative;
@@ -415,8 +415,8 @@ h2 {
     padding-bottom: 14px;
 }
 .drx_chatbot_widget .chat_bubble.user {
-	border: 1px solid var(--user-primary-color);
-	background: var(--user-secondary-color);
+	border: 1px solid #039b69;
+	background: #c1eedf;
 	border-radius: 10px 0px 10px 10px; 
 	float:right; 
 	margin-right: 30px;
@@ -431,7 +431,7 @@ h2 {
 }
 
 .drx_chatbot_widget .bubble_icon {
-	background-image: var(--bubble-icon);
+	background-image: url(../images/chatbot_bubble_icon.png);
 	background-repeat: no-repeat;
 	width: 100%;
 	height: 25px;
@@ -456,16 +456,16 @@ h2 {
 }
 
 .drx_chatbot_widget .chat_bubble svg.bubble_icon .fa-secondary {
-	color: var(--user-primary-color);
+	color: #039b69;
 }
 
 .drx_chatbot_widget .chat_bubble.user .fa-primary {
-	color: var(--white-color);
+	color: #fff;
 }
 
 .drx_chatbot_widget .chat_bubble:before {
 	z-index: 1;
-	border: 10px solid var(--primary-color);
+	border: 10px solid #0345c2;
 	border-width: 10px 5px 3px 5px;
 	left: 0px;
 	top: -1px;
@@ -473,7 +473,7 @@ h2 {
 
 .drx_chatbot_widget .chat_bubble:after {
 	z-index: 2;
-	border: 10px solid var(--white-color);
+	border: 10px solid #fff;
 	border-width: 9px 4px 4px 4px;
 	top: 0;
 	left: 2px;
@@ -492,7 +492,7 @@ h2 {
 
 .drx_chatbot_widget .chat_bubble.user:before {
 	z-index: 1;
-	border: 10px solid var(--user-primary-color);
+	border: 10px solid #039b69;
 	border-width: 10px 5px 3px 5px;
 	right: 0px;
 	top: -1px;
@@ -500,7 +500,7 @@ h2 {
 
 .drx_chatbot_widget .chat_bubble.user:after {
 	z-index: 2;
-	border: 10px solid var(--user-secondary-color);
+	border: 10px solid #c1eedf;
 	border-width: 9px 4px 4px 4px;
 	top: 0;
 	right: 2px;
@@ -519,7 +519,7 @@ h2 {
 }
 
 .drx_chatbot_widget .send_us_message {
-	background: var(--white-color);
+	background: #fff;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -539,7 +539,7 @@ h2 {
 }
 
 .drx_chatbot_widget .send_us_message .send_us_btn {
-	background: var(--primary-color) url(../images/send_us_arrow_btn.png) no-repeat center center;
+	background: #0345c2 url(../images/send_us_arrow_btn.png) no-repeat center center;
 	bottom: 0;
 	right: 10px;
 	position: absolute;
@@ -547,7 +547,7 @@ h2 {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
-	border: 1px solid var(--primary-color);
+	border: 1px solid #0345c2;
 	outline: none;
 	box-shadow: 9px 9px 2px rgb(0 0 0 / 10%);
 	transition: all 0.16s ease-in-out 0s;
@@ -559,7 +559,7 @@ h2 {
 	content: "";
 	color: #fff;
 	border: 10px solid transparent;
-	border-color: transparent transparent transparent var(--white-color);
+	border-color: transparent transparent transparent #fff;
 	border-width: 10px 10px 10px 21px;
 	left: 15px;
 	top: 14px;
@@ -571,7 +571,7 @@ h2 {
 	content: "";
 	color: #fff;
 	border: 10px solid transparent;
-	border-color: transparent transparent transparent var(--primary-color);
+	border-color: transparent transparent transparent #0345c2;
 	border-width: 4px 4px 4px 12px;
 	left: 14px;
 	top: 20px;
@@ -579,18 +579,18 @@ h2 {
 }
 
 .drx_chatbot_widget .send_us_message .send_us_btn:hover {
-	background-color: var(--white-color);
+	background-color: #fff;
 	transform: scale(1.01);
 	margin-top: -1px;
 	margin-left: -3px;
 }
 
 .drx_chatbot_widget .send_us_message .send_us_btn:hover:before {
-	border-color: transparent transparent transparent var(--primary-color);
+	border-color: transparent transparent transparent #0345c2;
 }
 
 .drx_chatbot_widget .send_us_message .send_us_btn:hover:after {
-	border-color: transparent transparent transparent var(--white-color);
+	border-color: transparent transparent transparent #fff;
 }
 
 @media(max-width:500px) {
@@ -601,7 +601,7 @@ h2 {
 }
 
 .drx_chatbot_widget .que {
-	color: var(--user-primary-color);
+	color: #039b69;
 	font-size: 24px;
 	padding-left: 45px;
 	margin-top: 20px;
@@ -637,7 +637,7 @@ h2 {
     padding: 1px;
     font-size: 20px;
     cursor: pointer;
-    color: var(--primary-color);
+    color: #0345c2;
 	    position: absolute;
     left: 17px;
     top: 16px;
