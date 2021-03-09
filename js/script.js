@@ -61,9 +61,9 @@ function getCookie(name) {
 }
 
 var user=getCookie("drxChatbot");
-if(user == undefined || user == null){
+//if(user == undefined || user == null){
 user_id = uuidv4() + "_" + Date.now();
-} 
+//} 
 
 var flag = 0;
 $(document).ready(function() {
@@ -266,8 +266,7 @@ function setUserResponse(message) {
 
     $(".usrInput").val("");
     $(UserResponse).appendTo(".chats").hide().fadeIn().before('<div class="clr"></div>');
-    scrollToBottomOfResults();
-    showBotTyping();
+    scrollToBottomOfResults(); 
     $(".suggestions").remove();
 }
 
@@ -357,7 +356,7 @@ function initChatbot(message) {
         }
     });
 	
-	// load Chat window with localStorage
+	// load Chat window with localStorage  
 	if (user == "drxchatbot") {  
 		$('.drx_chatbot_widget').addClass('active');
 		$('.chat_window').addClass('active');
@@ -746,8 +745,7 @@ function getUserPosition(position) {
     //here you add the intent which you want to trigger 
     response = '/inform{"latitude":' + position.coords.latitude + ',"longitude":' + position.coords.longitude + '}';
     $("#userInput").prop('disabled', false);
-    send(response);
-    showBotTyping();
+    send(response); 
 }
 
 function handleLocationAccessError(error) {
@@ -769,7 +767,7 @@ function handleLocationAccessError(error) {
 
     response = '/inform{"user_location":"deny"}';
     send(response);
-    showBotTyping();
+    
     $(".usrInput").val("");
     $("#userInput").prop('disabled', false);
 
@@ -943,6 +941,8 @@ $(".send_us ").bind("click", function() {
     $('.chat_window').addClass('active');
     $('.contentarea.chats').empty();
     send("/home");
+    // set new cookie
+    setCookie("drxChatbot", 'drxchatbot', 1); 
 });
 $(".chatbot_back  ").bind("click", function() {
     $('.start_window').addClass('active');
