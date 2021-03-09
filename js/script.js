@@ -31,15 +31,19 @@ function updateChatSessionData(){
 }
 
 
-//initialization
-function uuidv4() {
-    //var uuidv4 = 
-    /* IE browser not supporing this code
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-    */
-}
+//initialization 
+function mId(length) {
+    var result  = '';
+    var chr       = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var chrL = chr.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += chr.charAt(Math.floor(Math.random() * chrL));
+    }
+    return result;
+ }
+ function uuidv4(){ 
+  return mId(8)+'-'+mId(4)+'-'+mId(4)+'-'+mId(4)+'-'+mId(12)
+ }
 
 function getCookie(name) {
     // Split cookie string and get all individual name=value pairs in an array
@@ -60,10 +64,18 @@ function getCookie(name) {
     return null;
 }
 
-var user=getCookie("drxChatbot");
-//if(user == undefined || user == null){
-user_id = uuidv4() + "_" + Date.now();
-//} 
+var user=getCookie("drxChatbot"); 
+
+if(user == undefined || user == null){
+    lclUser_id = uuidv4() + "_" + Date.now();
+    localStorage.removeItem("user_id");
+    localStorage.setItem("user_id",  lclUser_id)  
+}else{
+    lclUser_id = localStorage.getItem("user_id");
+    localStorage.setItem("user_id",  lclUser_id)  
+} 
+user_id = localStorage.getItem("user_id"); 
+console.log('user_id:' + user_id);
 
 var flag = 0;
 $(document).ready(function() {
