@@ -34,9 +34,11 @@ function updateChatSessionData(){
 //initialization
 function uuidv4() {
     //var uuidv4 = 
+    /* IE browser not supporing this code
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
+    */
 }
 
 function getCookie(name) {
@@ -437,7 +439,8 @@ function setBotResponse(response) {
                 //check if the custom payload type is "quickReplies"
                 if (response[i].custom.payload == "quickReplies") {
                     quickRepliesData = response[i].custom.data;
-                    showQuickReplies(quickRepliesData);
+                    
+                    //showQuickReplies(quickRepliesData); // IE browser not supporing this code
                     return;
                 }
 
@@ -674,6 +677,7 @@ function createCardsCarousel(cardsData) {
 
 //====================================== Quick Replies ==================================================
 
+/* IE browser not supporing this code
 function showQuickReplies(quickRepliesData) {
     var chips = ""
     for (i = 0; i < quickRepliesData.length; i++) {
@@ -712,7 +716,7 @@ function showQuickReplies(quickRepliesData) {
     });
 
 }
-
+*/
 // on click of quickreplies, get the value and send to rasa
 $(document).on("click", ".quickReplies .chip", function() {
     var text = this.innerText;
