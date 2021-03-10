@@ -64,18 +64,37 @@ function getCookie(name) {
     return null;
 }
 
+/*  VARIABLE DECLARATION */ 
+var chatbot_theme;  
+let root = document.documentElement;
+
+root.style.setProperty('--primary-color', '#333');
+root.style.setProperty('--white-color', "#fff");
+root.style.setProperty('--black-color', "#000");
+root.style.setProperty('--user-primary-color', "#039b69");
+root.style.setProperty('--user-secondary-color', "#c1eedf");
+root.style.setProperty('--verndor-logo', "url(../images/chatbot_logo.png)");
+root.style.setProperty('--bubble-icon', "url(../images/chatbot_bubble_icon.png)"); 
+
+if(user == undefined || user == null){  
+    localStorage.removeItem("chatbotTheme");    
+}else{ 
+    chatbot_theme = localStorage.getItem("chatbotTheme"); 
+} 
+localStorage.setItem("chatbotTheme",  chatbot_theme);  
+
+/*  BASED ON COOKIES UPDATE USER ID AND THEME COLOR    */
 var user=getCookie("drxChatbot"); 
+user_id = localStorage.getItem("user_id"); 
+console.log('user_id:' + user_id);
 
 if(user == undefined || user == null){
     lclUser_id = uuidv4() + "_" + Date.now();
-    localStorage.removeItem("user_id");
-    localStorage.setItem("user_id",  lclUser_id)  
+    localStorage.removeItem("user_id");  
 }else{
-    lclUser_id = localStorage.getItem("user_id");
-    localStorage.setItem("user_id",  lclUser_id)  
+    lclUser_id = localStorage.getItem("user_id"); 
 } 
-user_id = localStorage.getItem("user_id"); 
-console.log('user_id:' + user_id);
+localStorage.setItem("user_id",  lclUser_id)  
 
 var flag = 0;
 $(document).ready(function() {
@@ -278,16 +297,11 @@ function initChatbot(message) {
 			// var vName = [11100, 11111, 11122, 11133, 11144, 11155, 11166, 11177, 11188, 11199];
 			var vTheme = response.vendorTheme?response.vendorTheme:"#0345c2"; //["#0345c2", "#990033","#0345c2","#0345c3","#0345c4","#0345c5","#0345c6","#666666","#0345c2","#0345c2"];
 			// var res = {vendorName:vName, vendorTheme:vTheme, vendorLogo:""}
-			console.log(vTheme);
-			/*  VARIABLE DECLARATION */
-			let root = document.documentElement;
-			root.style.setProperty('--primary-color', vTheme);
-			root.style.setProperty('--white-color', "#fff");
-			root.style.setProperty('--black-color', "#000");
-			root.style.setProperty('--user-primary-color', "#039b69");
-			root.style.setProperty('--user-secondary-color', "#c1eedf");
-			root.style.setProperty('--verndor-logo', "url(../images/chatbot_logo.png)");
-			root.style.setProperty('--bubble-icon', "url(../images/chatbot_bubble_icon.png)");
+			console.log(vTheme);  
+            chatbot_theme = vTheme; 
+            localStorage.setItem("chatbotTheme",  chatbot_theme)    
+            root.style.setProperty('--primary-color', localStorage.getItem("chatbotTheme")); 
+
         },
         error: function(xhr, textStatus, errorThrown) {
 
@@ -840,7 +854,7 @@ $(".send_us ").bind("click", function() {
     $('.contentarea.chats').empty();
     send("/home");
     // set new cookie
-    setCookie("drxChatbot", 'drxchatbot', 5); 
+    setCookie("drxChatbot", 'drxchatbot', 10); 
 });
 $(".chatbot_back  ").bind("click", function() {
     $('.start_window').addClass('active');
@@ -852,15 +866,6 @@ $("  .faq_window .chatbot_back ").bind("click", function() {
     $('.faq_window').removeClass('active');
 });
 
+ 
 
-/*  VARIABLE DECLARATION */
-/*
-let root = document.documentElement;
-root.style.setProperty('--primary-color', "#0345c2");
-root.style.setProperty('--white-color', "#fff");
-root.style.setProperty('--black-color', "#000");
-root.style.setProperty('--user-primary-color', "#039b69");
-root.style.setProperty('--user-secondary-color', "#c1eedf");
-root.style.setProperty('--verndor-logo', "url(../images/chatbot_logo.png)");
-root.style.setProperty('--bubble-icon', "url(../images/chatbot_bubble_icon.png)");
-*/
+
