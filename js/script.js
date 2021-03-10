@@ -2,8 +2,6 @@
 if(navigator.userAgent.match(/Trident\/7\./)) {  
 	$('link[href="css/h2h_chatbot.css"]').attr('href','css/h2h_chatbot_ie.css');
 }
- 
-
 
 //initialization
 function uuidv4() {
@@ -46,73 +44,6 @@ $(document).ready(function() {
 
     //global variables
     action_name = "main options";
-    
-
-    /* Voice to Text - Start */
-	/*
-    var noteContent = '';
-    try {
-        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!window.SpeechRecognition) {
-            if (!window.webkitSpeechRecognition) {
-                // Implement graceful fail if browser doesn't support SpeechRecognition API
-                return;
-            }
-            window.SpeechRecognition = window.webkitSpeechRecognition;
-        }
-        var recognition = new window.SpeechRecognition();
-    } catch (e) {
-        console.error('SpeechRecognition-' + e);
-        $('.no-browser-support').show();
-        $('.app').hide();
-    }
-    recognition.continuous = true;
-    recognition.onresult = function(event) {
-        var current = event.resultIndex;
-        // Get a transcript of what was said.
-        var transcript = event.results[current][0].transcript;
-        //console.log(transcript);
-        var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
-        if (!mobileRepeatBug) {
-            noteContent += transcript;
-            setUserResponse(noteContent);
-            send(noteContent);
-            noteContent = '';
-
-            $("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');
-            recognition.stop();
-            if (!noteContent.length) {
-                var kk = 1;
-
-            } else {
-                noteContent = '';
-                //noteTextarea.val('');
-                flag = 0;
-            }
-        }
-    };
-    $('body').on('click', '#microphoneButton', function(e) {
-        console.log('pk');
-        if ($(this).html() == '<i class="fa fa-microphone" aria-hidden="true"></i>') {
-            console.log('if');
-            $(this).html('<i class="fa fa-volume-up" aria-hidden="true">');
-            recognition.start();
-            if (noteContent.length) {
-                noteContent += ' ';
-            }
-        } else {
-            recognition.stop();
-            $("#microphoneButton").html('<i class="fa fa-microphone" aria-hidden="true"></i>');
-            if (!noteContent.length) {
-                var kk = 1;
-            } else {
-                noteContent = '';
-                noteTextarea.val('');
-            }
-        }
-    });
-	*/
-    /* Voice to Text - End */
 
 });
 
@@ -636,48 +567,6 @@ function createCardsCarousel(cardsData) {
     return cardContents;
 }
 
-//====================================== Quick Replies ==================================================
-
-/* IE browser not supporing this code
-function showQuickReplies(quickRepliesData) {
-    var chips = ""
-    for (i = 0; i < quickRepliesData.length; i++) {
-        var chip = '<div class="chip" data-payload=\'' + (quickRepliesData[i].payload) + '\'>' + quickRepliesData[i].title + '</div>'
-        chips += (chip)
-    }
-
-    var quickReplies = '<div class="quickReplies">' + chips + '</div><div class="clearfix"></div>'
-    $(quickReplies).appendTo(".chats").fadeIn();
-    scrollToBottomOfResults();
-    const slider = document.querySelector('.quickReplies');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.classList.add('active');
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-    });
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-    slider.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 3; //scroll-fast
-        slider.scrollLeft = scrollLeft - walk;
-    });
-
-}
-*/
 // on click of quickreplies, get the value and send to rasa
 $(document).on("click", ".quickReplies .chip", function() {
     var text = this.innerText;
